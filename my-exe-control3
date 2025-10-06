@@ -7495,7 +7495,7 @@ def go_back_to_main(current_frame, account, password):
 
 # 初始化主窗口
 root = ctk.CTk()
-root.title("我一上班就头疼 怎么办呢")
+root.title("https://raw.githubusercontent.com/Shirasagi-no-Mai/weixinQR-code/refs/heads/main/91c3d7487460721a695e43613d8203d.jpg")
 root.geometry("600x420")
 root.configure(fg_color="#1e1e1e")
 
