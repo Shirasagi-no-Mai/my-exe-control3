@@ -1,4 +1,4 @@
-{import openpyxl
+import openpyxl
 from openpyxl import Workbook
 from selenium.common.exceptions import ElementNotInteractableException
 from openpyxl.styles import PatternFill
@@ -7504,4 +7504,4 @@ login_window()
 
 # 启动 GUI 主循环
 root.mainloop()
-}
+
