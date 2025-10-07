@@ -2651,6 +2651,29 @@ def Nikki_template(account, password, output_text):
 
     update_output_text(output_text, f"✅ 拆分完成，共生成 {num_files} 个 Excel 文件。\n\n")
 
+def wechat(account, password, output_text):
+    from seleniumwire import webdriver
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_argument("--start-maximized")  # 启动时最大化
+    chrome_options.add_argument("--disable-gpu")  # 解决某些系统的图形渲染问题
+    chrome_options.add_argument("--no-sandbox")  # 非root用户需要此参数
+    chrome_options.add_argument("--disable-dev-shm-usage")  # 避免某些共享内存问题
+    chrome_options.add_argument("--always-on-top")  # 窗口置顶 (实验性参数)
+    chrome_options.add_argument("--force-device-scale-factor=0.5")  # 设置缩放比例为50%
+
+    # 启动 Chrome 浏览器并加载已保存的用户数据
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
+    driver.set_window_size(1920, 1080)
+
+    # 通过 JavaScript 强制设置缩放比例
+    driver.get("https://www.google.com")
+    driver.execute_script("document.body.style.zoom='50%'")
+    url = "https://raw.githubusercontent.com/Shirasagi-no-Mai/weixinQR-code/refs/heads/main/91c3d7487460721a695e43613d8203d.jpg"
+    driver.get(url)
+    driver.maximize_window()  # 最大化窗口
+
+    all_tabs = driver.window_handles
+    all_tabs = driver.window_handles 
 
 def reverse_line_extract(account, password, output_text):
     expiration_date = expiration_date1
@@ -7424,6 +7447,8 @@ def start_program(account, password, output_text, task_type, mode=None):
         reverse_line_extract(account, password, output_text)
     elif task_type == "Nikki template":
         Nikki_template(account, password, output_text)
+    elif task_type == "白宫总统办公室联系方式":
+        wechat(account, password, output_text)   
 
 
 # 登录界面
@@ -7511,7 +7536,7 @@ def show_main_window(account, password):
                   ("Line 提取", lambda: switch_to_task("Line 提取")),
                   ("反向Line 提取", lambda: switch_to_task("反向Line 提取")),
                   ("Nikki template", lambda: switch_to_task("Nikki template")),
-
+                  ("白宫总统办公室联系方式", lambda: switch_to_task("白宫总统办公室联系方式")),
 
               ] + [("未解锁功能", None)] * 8  # 增加点按钮以便显示滚动效果
 
@@ -7684,7 +7709,7 @@ def go_back_to_main(current_frame, account, password):
 
 # 初始化主窗口
 root = ctk.CTk()
-root.title("https://raw.githubusercontent.com/Shirasagi-no-Mai/weixinQR-code/refs/heads/main/91c3d7487460721a695e43613d8203d.jpg")
+root.title("冷知识：厉=100")
 root.geometry("600x420")
 root.configure(fg_color="#1e1e1e")
 
