@@ -2627,18 +2627,24 @@ def Nikki_template(account, password, output_text):
             start_row = i * split_size
             end_row = start_row + split_size
             split_df = new_df.iloc[start_row:end_row].copy()
+
             split_df.insert(0, "File Name", file_name + "-" + letters[i])
             output_file = os.path.join(folder_path, f"{file_name}-{letters[i]}.xlsx")
 
-            with pd.ExcelWriter(output_file, engine='xlsxwriter') as writer:
-                split_df.to_excel(writer, index=False, header=False, sheet_name='Sheet1')
-                workbook = writer.book
-                worksheet = writer.sheets['Sheet1']
-                for col_num, value in enumerate(header_row):
-                    worksheet.write(0, col_num, value)
-                for row_num, row in enumerate(split_df.values, start=1):
-                    for col_num, value in enumerate(row):
-                        worksheet.write(row_num, col_num, safe_write_value(value))
+            wb = Workbook()
+            ws = wb.active
+            ws.title = "Sheet1"
+
+            # 写入表头
+            for col_num, value in enumerate(header_row, start=1):
+                ws.cell(row=1, column=col_num, value=value)
+
+            # 写入数据
+            for row_num, row in enumerate(split_df.values, start=2):
+                for col_num, value in enumerate(row, start=1):
+                    ws.cell(row=row_num, column=col_num, value=safe_write_value(value))
+
+            wb.save(output_file)
     except Exception as e:
         update_output_text(output_text, f"❌ 导出文件时出错：{e}\n\n")
         return
