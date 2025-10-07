@@ -7,7 +7,6 @@ import sys
 import tkinter as tk
 import inspect
 
-import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
@@ -42,6 +41,9 @@ from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 from requests.exceptions import ConnectionError, Timeout, RequestException
 import msoffcrypto
+import string
+import re
+import numpy as np  # 导入numpy以检查NaN和Inf值
 
 # *************************通过个人网页更新过期日期*************************************************************************
 CONFIG_URL = "https://raw.githubusercontent.com/Shirasagi-no-Mai/my-exe-control/main/expiration_config.json"
@@ -2464,6 +2466,184 @@ def line_extract(account, password, output_text):
             update_output_text(output_text, f"🗑 删除临时解密文件: {file}\n")
 
     update_output_text(output_text, "✅ 完成所有步骤\n")
+
+def Nikki_template(account, password, output_text):
+    expiration_date = expiration_date1
+    now = datetime.now()
+    func_name = inspect.currentframe().f_code.co_name  # 自动获取当前函数名
+
+    if expiration_date and now > expiration_date:
+        if not is_user_allowed(func_name, account):
+            update_output_text(output_text, "程序已过期，请联系Larry获取更新版本。\n\n")
+            exit()
+
+    # Step 2 — 找桌面路径
+    user_home = os.path.expanduser("~")
+    possible_paths = [
+        os.path.join(user_home, "Desktop"),
+        os.path.join(user_home, "桌面"),
+        os.path.join(user_home, "OneDrive", "Desktop"),
+        os.path.join(user_home, "OneDrive", "桌面")
+    ]
+    desktop_path = next((path for path in possible_paths if os.path.exists(path)), None)
+    if not desktop_path:
+        update_output_text(output_text, "❌ 未找到有效的桌面路径\n\n")
+        sys.exit()
+
+    folder_path = os.path.join(desktop_path, "Nikki")
+    if not os.path.exists(folder_path):
+        os.makedirs(folder_path)
+        update_output_text(output_text, f"⚠️ 未找到文件夹，已创建新文件夹：{folder_path}\n\n")
+        sys.exit()
+    # 获取Excel文件路径（假设文件夹里只有一个Excel文件）
+    try:
+        folder_path = os.path.join(desktop_path, "Nikki")
+        if not os.path.exists(folder_path):
+            os.makedirs(folder_path)
+            update_output_text(output_text, f"⚠️ 未找到文件夹，已创建新文件夹：{folder_path}\n\n")
+            return
+
+        files = [f for f in os.listdir(folder_path) if f.endswith('.xlsx')]
+
+        if not files:
+            update_output_text(output_text, "❌ 文件夹中没有找到 Excel 文件！\n\n")
+            return
+
+        if len(files) > 1:
+            update_output_text(output_text, "❌ 文件夹中有多个 Excel 文件，请只保留一个！\n\n")
+            return
+
+        file_name = os.path.splitext(files[0])[0]  # 获取唯一文件名（无后缀）
+        file_path = os.path.join(folder_path, files[0])
+
+    except Exception as e:
+        update_output_text(output_text, f"❌ 读取文件夹出错：{e}\n\n")
+        return
+
+        file_name = os.path.splitext(files[0])[0]
+        file_path = os.path.join(folder_path, files[0])
+    except Exception as e:
+        update_output_text(output_text, f"❌ 检查或创建文件夹时出错：{e}\n\n")
+        return
+
+    # ===== Step 4. 读取 Excel =====
+    try:
+        df = pd.read_excel(file_path, header=None)
+        print(df.head(15))
+    except Exception as e:
+        update_output_text(output_text, f"❌ 读取 Excel 文件失败：{e}\n\n")
+        return
+
+    try:
+        header_row = df.iloc[8].tolist()
+        df = df.iloc[10:].reset_index(drop=True)
+        df.columns = header_row
+        print(header_row)
+    except Exception as e:
+        update_output_text(output_text, f"❌ 处理表头时出错：{e}\n\n")
+        return
+
+    # ===== Step 5. 找到有效数据范围 =====
+    try:
+        k_col = df.iloc[:, 10]
+        first_blank_index = k_col[k_col.isna() | (k_col.astype(str).str.strip() == '')].index
+        if len(first_blank_index) > 0:
+            stop_index = first_blank_index[0]
+            df = df.loc[:stop_index - 1].reset_index(drop=True)
+    except Exception as e:
+        update_output_text(output_text, f"❌ 查找空行时出错：{e}\n\n")
+        return
+
+    # ===== Step 6. 查找列函数 =====
+    def find_col(keyword):
+        try:
+            tenth_row = pd.Series(header_row)  # 转换为 Series
+            match = tenth_row[tenth_row.astype(str).str.contains(keyword, case=False, na=False)]
+            return match.index[0] if not match.empty else None
+        except Exception as e:
+            update_output_text(output_text, f"❌ 查找列时出错（关键字 {keyword}）：{e}\n\n")
+            return None
+
+    hts_col = find_col("HS")
+    qty_col = find_col("Quantity")
+    usd_col = find_col("Amount")
+    kg_col = find_col("N.W")
+    net_col = find_col("G.W")
+    # ===== Step 7. 生成新表 =====
+    try:
+        new_df = pd.DataFrame(index=df.index)
+        new_df[1] = ""
+        new_df[2] = ""
+        new_df[3] = "CN"
+        new_df[4] = "CN"
+
+        new_df[5] = df.iloc[:, hts_col].apply(
+            lambda x: ''.join(re.findall(r'\d+', str(x)))) if hts_col is not None else ""
+        new_df[6] = df.iloc[:, qty_col] if qty_col is not None else ""
+        new_df[7] = "PCS"
+        new_df[8] = df.iloc[:, usd_col].astype(float) / df.iloc[:, qty_col].astype(
+            float) if usd_col is not None and qty_col is not None else ""
+
+        def round_value(value):
+            try:
+                return round(float(value), 0)
+            except Exception:
+                return value
+
+        new_df[9] = df.iloc[:, usd_col].apply(
+            lambda x: round_value(x) if pd.notna(x) else "") if usd_col is not None else ""
+        new_df[10] = df.iloc[:, kg_col] if kg_col is not None else ""
+        new_df[11] = df.iloc[:, net_col] if net_col is not None else ""
+
+
+    except Exception as e:
+        update_output_text(output_text, f"❌ 生成新表时出错：{e}\n\n")
+        return
+
+    # ===== Step 8. 拆分并导出 =====
+    try:
+        header_row = [
+            "Invoice_No", "Part", "Commercial_Description", "Country_of_Origin", "Country_of_Export",
+            "Tariff_Number", "Quantity", "Quantity_UOM", "Unit_Price", "Total_Line_Value", "Net_Weight_KG",
+            "Gross_Weight_KG", "Manufacturer_Name", "Manufacturer_Address_1", "Manufacturer_Address_2",
+            "Manufacturer_City", "Manufacturer_State", "Manufacturer_Zip", "Manufacturer_Country", "MID_Code",
+            "Buyer_Name", "Buyer_Address_1", "Buyer_Address_2", "Buyer_City", "Buyer_State", "Buyer_Zip",
+            "Buyer_Country", "Buyer_ID_Number", "Consignee_Name", "Consignee_Address_1", "Consignee_Address_2",
+            "Consignee_City", "Consignee_State", "Consignee_Zip", "Consignee_Country", "Consignee_ID_Number",
+            "SICountry", "SP1", "SP2", "Zone_Status", "Privileged_Filing_Date", "Line_Piece_Count",
+            "ADD_Case_Number", "CVD_Case_Number", "AD_Non_Reimbursement_Statement", "AD-CVD_Certification_Designation"
+        ]
+
+        split_size = 998
+        num_files = (len(new_df) // split_size) + (1 if len(new_df) % split_size != 0 else 0)
+        letters = list(string.ascii_uppercase)
+
+        def safe_write_value(value):
+            if isinstance(value, (float, int)) and (np.isnan(value) or np.isinf(value)):
+                return ""
+            return value
+
+        for i in range(num_files):
+            start_row = i * split_size
+            end_row = start_row + split_size
+            split_df = new_df.iloc[start_row:end_row].copy()
+            split_df.insert(0, "File Name", file_name + "-" + letters[i])
+            output_file = os.path.join(folder_path, f"{file_name}-{letters[i]}.xlsx")
+
+            with pd.ExcelWriter(output_file, engine='xlsxwriter') as writer:
+                split_df.to_excel(writer, index=False, header=False, sheet_name='Sheet1')
+                workbook = writer.book
+                worksheet = writer.sheets['Sheet1']
+                for col_num, value in enumerate(header_row):
+                    worksheet.write(0, col_num, value)
+                for row_num, row in enumerate(split_df.values, start=1):
+                    for col_num, value in enumerate(row):
+                        worksheet.write(row_num, col_num, safe_write_value(value))
+    except Exception as e:
+        update_output_text(output_text, f"❌ 导出文件时出错：{e}\n\n")
+        return
+
+    update_output_text(output_text, f"✅ 拆分完成，共生成 {num_files} 个 Excel 文件。\n\n")
 
 
 def reverse_line_extract(account, password, output_text):
@@ -7236,6 +7416,8 @@ def start_program(account, password, output_text, task_type, mode=None):
         line_extract(account, password, output_text)
     elif task_type == "反向Line 提取":
         reverse_line_extract(account, password, output_text)
+    elif task_type == "Nikki template":
+        Nikki_template(account, password, output_text)
 
 
 # 登录界面
@@ -7322,6 +7504,7 @@ def show_main_window(account, password):
                   ("steel/al Duty", lambda: switch_to_task("steel/al Duty")),
                   ("Line 提取", lambda: switch_to_task("Line 提取")),
                   ("反向Line 提取", lambda: switch_to_task("反向Line 提取")),
+                  ("Nikki template", lambda: switch_to_task("Nikki template")),
 
 
               ] + [("未解锁功能", None)] * 8  # 增加点按钮以便显示滚动效果
@@ -7504,4 +7687,3 @@ login_window()
 
 # 启动 GUI 主循环
 root.mainloop()
-
