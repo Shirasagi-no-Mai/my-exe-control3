@@ -7709,7 +7709,7 @@ def go_back_to_main(current_frame, account, password):
 
 # 初始化主窗口
 root = ctk.CTk()
-root.title("有什么special的吗 没什么special的")
+root.title("冷知识，厉=100")
 root.geometry("600x420")
 root.configure(fg_color="#1e1e1e")
 
