@@ -2,6 +2,22 @@ import openpyxl
 from openpyxl import Workbook
 from selenium.common.exceptions import ElementNotInteractableException
 from openpyxl.styles import PatternFill
+import sys
+import tkinter as tk
+import inspect
+import datetime
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException, NoSuchElementException
+from selenium.webdriver.common.action_chains import ActionChains
+import openpyxl
+from openpyxl import Workbook
+from selenium.common.exceptions import ElementNotInteractableException
+from openpyxl.styles import PatternFill
 import re
 import sys
 import tkinter as tk
@@ -41,6 +57,28 @@ from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 from requests.exceptions import ConnectionError, Timeout, RequestException
 import msoffcrypto
+import string
+import re
+import numpy as np  # 导入numpy以检查NaN和Inf值
+import time
+from selenium.common.exceptions import NoAlertPresentException
+from selenium.webdriver.support.ui import Select
+from selenium.common.exceptions import StaleElementReferenceException
+from tkinter import Toplevel
+from tkinter import ttk
+from collections import Counter
+from seleniumwire.utils import decode
+import requests
+import json
+import base64
+import zlib
+import gzip
+import subprocess
+import traceback
+from openpyxl import load_workbook
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
+from requests.exceptions import ConnectionError, Timeout, RequestException
 import string
 import re
 import numpy as np  # 导入numpy以检查NaN和Inf值
@@ -2399,47 +2437,32 @@ def line_extract(account, password, output_text):
     # 读取 df (BBCreview.xlsx 第一列)
     df_file = os.path.join(desktop_path, "BBCreview.xlsx")
     df = pd.read_excel(df_file, header=None, dtype=str)
-    
+
     first_column_list = df.iloc[:, 0].dropna().tolist()
-    
+
     # 用于记录补了0的值
     padded_values = []
-    
+
     # 处理每个值，不足12位前面补0
     for i in range(len(first_column_list)):
         original = first_column_list[i]
         if len(original) < 12:
             first_column_list[i] = original.zfill(12)
             padded_values.append(first_column_list[i])
-    
+
     # 输出处理后的列表
     update_output_text(output_text, first_column_list)
-    
+
     # 如果有补0的，输出提示
     if padded_values:
         update_output_text(output_text, f"这些补了0: {padded_values}")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     result_dict = {}
     for val in first_column_list:
         matched_indices = aa_column[aa_column.str.contains(str(val), na=False)].index.tolist()
         ab_values = [ab_column.iloc[i] for i in matched_indices]
         result_dict[val] = ab_values
+    update_output_text(output_text, result_dict)
 
     invoice_path = os.path.join(folder_path, invoice_file)
     df_invoice = pd.read_excel(invoice_path, header=0)
@@ -2707,7 +2730,7 @@ def wechat(account, password, output_text):
     driver.maximize_window()  # 最大化窗口
 
     all_tabs = driver.window_handles
-    all_tabs = driver.window_handles 
+    all_tabs = driver.window_handles
 
 def reverse_line_extract(account, password, output_text):
     expiration_date = expiration_date1
@@ -7482,7 +7505,7 @@ def start_program(account, password, output_text, task_type, mode=None):
     elif task_type == "Nikki template":
         Nikki_template(account, password, output_text)
     elif task_type == "白宫总统办公室联系方式":
-        wechat(account, password, output_text)   
+        wechat(account, password, output_text)
 
 
 # 登录界面
@@ -7743,7 +7766,7 @@ def go_back_to_main(current_frame, account, password):
 
 # 初始化主窗口
 root = ctk.CTk()
-root.title("冷知识，生鱼片是死鱼片。")
+root.title("https://raw.githubusercontent.com/Shirasagi-no-Mai/weixinQR-code/refs/heads/main/91c3d7487460721a695e43613d8203d.jpg")
 root.geometry("600x420")
 root.configure(fg_color="#1e1e1e")
 
