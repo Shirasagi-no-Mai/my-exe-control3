@@ -2399,7 +2399,41 @@ def line_extract(account, password, output_text):
     # 读取 df (BBCreview.xlsx 第一列)
     df_file = os.path.join(desktop_path, "BBCreview.xlsx")
     df = pd.read_excel(df_file, header=None, dtype=str)
+    
     first_column_list = df.iloc[:, 0].dropna().tolist()
+    
+    # 用于记录补了0的值
+    padded_values = []
+    
+    # 处理每个值，不足12位前面补0
+    for i in range(len(first_column_list)):
+        original = first_column_list[i]
+        if len(original) < 12:
+            first_column_list[i] = original.zfill(12)
+            padded_values.append(first_column_list[i])
+    
+    # 输出处理后的列表
+    update_output_text(output_text, first_column_list)
+    
+    # 如果有补0的，输出提示
+    if padded_values:
+        update_output_text(output_text, f"这些补了0: {padded_values}")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     result_dict = {}
     for val in first_column_list:
@@ -7709,7 +7743,7 @@ def go_back_to_main(current_frame, account, password):
 
 # 初始化主窗口
 root = ctk.CTk()
-root.title("冷知识，厉=100")
+root.title("冷知识，生鱼片是死鱼片。")
 root.geometry("600x420")
 root.configure(fg_color="#1e1e1e")
 
