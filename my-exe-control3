@@ -298,8 +298,8 @@ def FDA_program(account, password, output_text):
             continue
 
         # 格式化 entry number
-        fda_entry_number = f"NLJ-{cell_value[:-1]}-{cell_value[-1]}" if len(cell_value) >= 2 else cell_value
-        cpsc_entry_number = f"NLJ{cell_value}" if len(cell_value) >= 2 else cell_value
+        fda_entry_number = f"NUP-{cell_value[:-1]}-{cell_value[-1]}" if len(cell_value) >= 2 else cell_value
+        cpsc_entry_number = f"NUP{cell_value}" if len(cell_value) >= 2 else cell_value
 
         # 获取 FDA 状态
         response1 = get_fda_entry_status(fda_entry_number)
@@ -1977,7 +1977,7 @@ def query_program(account, password, output_text):
     else:
         update_output_text(output_text, "未找到有效的桌面路径\n\n")
         sys.exit()  # 程序立即停止
-    token = "eyJhbGciOiJIUzI1NiIsInR5cCI6ImFjY2VzcyJ9.eyJpYXQiOjE3NjA1NTIzOTksImV4cCI6MTc5MjA4ODM5OSwiYXVkIjoiaHR0cHM6Ly95b3VyZG9tYWluLmNvbSIsImlzcyI6ImZlYXRoZXJzIiwic3ViIjoiNjhlZTg3MDg3OGZlNzZhOGZmMTdjOGU3IiwianRpIjoiNDQ5NzA3ZDgtY2U4Yy00OTY0LTlhZTEtYTBmZDE1ZGVlZTYwIn0.GPFEv5bfEh__dAy2z3dhnpyhnbB-hQaVbmck3lVUwpU"
+    token = "eyJhbGciOiJIUzI1NiIsInR5cCI6ImFjY2VzcyJ9.eyJpYXQiOjE3NDQxNTU2MzEsImV4cCI6MTc3NTY5MTYzMSwiYXVkIjoiaHR0cHM6Ly95b3VyZG9tYWluLmNvbSIsImlzcyI6ImZlYXRoZXJzIiwic3ViIjoiNjc2MzA0NWJmYjUzZDM1NDc0ZTExZjQ2IiwianRpIjoiZDhlMmU3OWEtMWFjNC00YmNjLWFmNmItYTVkMTljZGFjODdiIn0.q5_Cp_wURZEz4fV6P1mySAbbj0PYC1acS3Fd4m7G3Dk"
 
     # 读取 Excel 文件
     df = pd.read_excel(file_path, header=None, dtype=str)  # 如果没有列名，使用 header=None
@@ -7743,7 +7743,7 @@ def go_back_to_main(current_frame, account, password):
 
 # 初始化主窗口
 root = ctk.CTk()
-root.title("一小时维护中")
+root.title("冷知识，生鱼片是死鱼片。")
 root.geometry("600x420")
 root.configure(fg_color="#1e1e1e")
 
