@@ -2173,100 +2173,152 @@ def query_program(account, password, output_text):
     update_output_text(output_text, "操作已完成请检查master数量\n\n")
 
 
+
+
+
 def QP_program(account, password, output_text):
-    """
-    使用account和password登录，调用API获取manifest数据，并将输出写入output_text。
-    
-    参数:
-        account (str): 用户账号
-        password (str): 用户密码
-        output_text: 用于输出的对象（如Tkinter Text控件或回调函数）
-    """
-    # Step 1: 创建Session以保持Cookie
-    session = requests.Session()
-    
-    # Step 2: 设置基础Headers
-    headers = {
-        'Accept': 'application/json, text/plain, */*',
-        'Bx-V': '2.5.31',
-        'Content-Type': 'application/json',
-        'Referer': 'https://os.gcsp.cainiao-inc.com/USA/manifestlist/manifestlist',
-        'Sec-Ch-Ua': '"Chromium";v="124", "Google Chrome";v="124", "Not-A.Brand";v="99"',
-        'Sec-Ch-Ua-Mobile': '?0',
-        'Sec-Ch-Ua-Platform': '"Windows"',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
-    }
-    
-    # Step 3: 模拟登录（假设登录URL和逻辑）
-    login_url = 'https://os.gcsp.cainiao-inc.com/login'  # 需替换为真实登录URL
-    login_data = {
-        'username': account,
-        'password': password
-    }
-    
-    try:
-        # 发送登录请求
-        login_resp = session.post(login_url, json=login_data, headers=headers)
-        if login_resp.status_code != 200:
-            update_output_text(output_text, f"登录失败，状态码: {login_resp.status_code}")
-            session.close()
-            return
-        
-        # 提取X-Xsrf-Token（假设从响应headers或body获取）
-        xsrf_token = login_resp.headers.get('X-Xsrf-Token', 'ba3c9310-3249-4d25-9fb6-7498aee92a70')  # 替换为实际逻辑
-        headers['X-Xsrf-Token'] = xsrf_token
-        update_output_text(output_text, "登录成功，获取到XSRF Token")
-        
-    except Exception as e:
-        update_output_text(output_text, f"登录异常: {str(e)}")
-        session.close()
-        return
-    
-    # Step 4: 设置API请求体
-    payload = {
-        "testMode": "false",
-        "domain": "USA",
-        "gateCode": "All",
-        "tabStatus": "All",
-        "pageNo": 1,
-        "pageSize": 10,
-        "createTimeBegin": "06-10-2025 00:00:00",
-        "createTimeEnd": "21-10-2025 00:00:00",
-        "etaTimeBegin": "",
-        "etaTimeEnd": "",
-        "linehualCode": "936-01654144"
-    }
-    
-    # Step 5: 发送API请求
-    api_url = 'https://os.gcsp.cainiao-inc.com/gcsp-buc/ggg3oc/manifest/queryPage'
-    try:
-        response = session.post(api_url, headers=headers, json=payload)
-        
-        # Step 6: 检查响应并提取内容
-        if response.status_code == 200:
-            data = response.json()
-            update_output_text(output_text, "API响应内容：")
-            update_output_text(output_text, json.dumps(data, indent=2, ensure_ascii=False))
-            
-            # 提取records（假设响应结构）
-            if 'data' in data and 'records' in data['data']:
-                records = data['data']['records']
-                update_output_text(output_text, f"\n提取到 {len(records)} 条记录：")
-                for record in records:
-                    update_output_text(output_text, f"- ID: {record.get('id', 'N/A')}, CreateTime: {record.get('createTime', 'N/A')}")
-            else:
-                update_output_text(output_text, "响应中无有效数据记录")
+    expiration_date = expiration_date1
+    now = datetime.now()
+    func_name = inspect.currentframe().f_code.co_name  # 自动获取当前函数名
+
+    if expiration_date and now > expiration_date:
+        if not is_user_allowed(func_name, account):
+            update_output_text(output_text, "程序已过期，请联系Larry获取更新版本。\n\n")
+            exit()
+
+    # 获取用户主目录
+    user_home = os.path.expanduser("~")
+
+    # 检测可能的桌面路径
+    possible_paths = [
+        os.path.join(user_home, "Desktop"),
+        os.path.join(user_home, "桌面"),
+        os.path.join(user_home, "OneDrive", "Desktop"),
+        os.path.join(user_home, "OneDrive", "桌面")
+    ]
+
+    # 查找存在的桌面路径
+    desktop_path = next((path for path in possible_paths if os.path.exists(path)), None)
+
+    if desktop_path:
+        file_path = os.path.join(desktop_path, "extract.xlsx")
+        if os.path.exists(file_path):
+            update_output_text(output_text, f"找到文件：{file_path}\n\n")
         else:
-            update_output_text(output_text, f"请求失败，状态码: {response.status_code}")
-            update_output_text(output_text, f"错误信息: {response.text}")
-    
+            # 创建空的 Excel 文件
+            wb = Workbook()
+            wb.save(file_path)
+            update_output_text(output_text, f"未找到文件，已创建新文件：{file_path}\n\n")
+            sys.exit()  # 程序立即停止
+    else:
+        update_output_text(output_text, "未找到有效的桌面路径\n\n")
+        sys.exit()  # 程序立即停止
+
+    # 读取 Excel 文件
+    df = pd.read_excel(file_path, header=None, dtype=str)  # 如果没有列名，使用 header=None
+
+    # 通过 iloc 访问第一列（假设是 A 列）
+    a_column = df.iloc[:, 0]  # 选择第一列
+
+    # 过滤掉 'na' 和 NaN 值
+    filtered_list = a_column[a_column.notna() & (a_column != 'na')].tolist()
+    update_output_text(output_text, f"所有要处理的inbond: {filtered_list}\n\n\n")
+
+    try:
+        # 配置 ChromeOptions
+        options = webdriver.ChromeOptions()
+        chrome_binary = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
+        options.binary_location = chrome_binary
+        options.add_argument("--no-sandbox")
+        options.add_argument("--disable-dev-shm-usage")
+
+        # 检查 Chrome 可执行文件是否存在
+        if os.path.exists(chrome_binary):
+            update_output_text(output_text, f"Chrome 可执行文件存在: {chrome_binary}\n")
+        else:
+            update_output_text(output_text, f"Chrome 可执行文件不存在: {chrome_binary}\n")
+            raise FileNotFoundError(f"Chrome 可执行文件未找到: {chrome_binary}")
+
+        # 获取 ChromeDriver 路径和版本
+        try:
+            driver_path = ChromeDriverManager().install()
+            update_output_text(output_text, f"ChromeDriver 路径: {driver_path}\n")
+            # 检查 ChromeDriver 版本
+            driver_version = subprocess.check_output([driver_path, "--version"]).decode().strip()
+            update_output_text(output_text, f"ChromeDriver 版本: {driver_version}\n")
+        except Exception as e:
+            update_output_text(output_text, f"获取 ChromeDriver 路径或版本失败: {str(e)}\n")
+            raise
+
+        # 检查系统 PATH
+        system_path = os.environ.get("PATH", "")
+        update_output_text(output_text, f"系统 PATH: {system_path}\n")
+
+        # 初始化 Chrome 浏览器
+        update_output_text(output_text, "开始初始化 ChromeDriver...\n")
+        driver = webdriver.Chrome(service=Service(driver_path), options=options)
+        update_output_text(output_text, "ChromeDriver 初始化成功\n")
+
+    except webdriver.WebDriverException as wde:
+        update_output_text(output_text, f"初始化 ChromeDriver 失败 (WebDriverException): {str(wde)}\n")
+        update_output_text(output_text, f"堆栈跟踪: {traceback.format_exc()}\n")
+        raise
+    except FileNotFoundError as fnfe:
+        update_output_text(output_text, f"初始化 ChromeDriver 失败 (FileNotFoundError): {str(fnfe)}\n")
+        raise
     except Exception as e:
-        update_output_text(output_text, f"API请求异常: {str(e)}")
-    
-    # Step 7: 关闭Session
-    session.close()
+        update_output_text(output_text, f"初始化 ChromeDriver 失败 (未知错误): {str(e)}\n")
+        update_output_text(output_text, f"堆栈跟踪: {traceback.format_exc()}\n")
+        raise
+    url = "https://www.netchb.com/app/home.do"
+    driver.get(url)
 
+    WebDriverWait(driver, 20).until(
+        EC.presence_of_element_located((By.XPATH, '//*[@id="lName"]'))
+    ).send_keys(account)
 
+    # 等待 Password 输入框出现并输入密码
+    WebDriverWait(driver, 20).until(
+        EC.presence_of_element_located((By.XPATH, '//*[@id="pass"]'))
+    ).send_keys(password)
+
+    xpath = '//*[@id="loginForm"]/div[2]/input'
+    login_button = driver.find_element(By.XPATH, xpath)
+    login_button.click()
+    target_url = f"https://www.netchb.com/app/inbond/inbondMenu.do?itNo={'054294590'}"
+    # 打开页面
+    driver.get(target_url)
+    # 遍历 filtered_list 中的每个项目
+    for item in filtered_list:
+        if windowname != "task":
+            print("窗口已关闭，程序终止。")  # 调试打印
+            update_output_text(output_text, "窗口已关闭，程序终止。\n\n\n")
+            sys.exit()  # 窗口已关闭，退出程序
+        target_url = f"https://www.netchb.com/app/inbond/inbondMenu.do?itNo={item}"
+        # 打开页面
+        driver.get(target_url)
+
+        current_title = driver.title
+        update_output_text(output_text, f"正在处理{item}\n")
+
+        try:
+            # 查找特定的元素，增加最长等待时间
+            element_xpath = '/html/body/table/tbody/tr[2]/td[1]/table[4]/tbody/tr[1]/td[2]/a'
+            # 等待最多 50 秒，直到元素可点击
+            element = WebDriverWait(driver, 50).until(
+                EC.element_to_be_clickable((By.XPATH, element_xpath))
+            )
+
+            # 如果元素存在并且可点击，点击它
+            element.click()
+
+        except Exception as e:
+            # 如果元素未找到或不可点击，打印消息
+            update_output_text(output_text, f"在处理 {item}时出现问题！错误: {e}\n")
+
+    # 等待用户输入后关闭浏览器
+    input("按 Enter 键关闭浏览器...")
+    driver.quit()
 
 
 
