@@ -7747,7 +7747,7 @@ def go_back_to_main(current_frame, account, password):
 
 # 初始化主窗口
 root = ctk.CTk()
-root.title("月亮很圆")
+root.title("如果只有inbond提取用不了 记得第三列加上61/62/63")
 root.geometry("600x420")
 root.configure(fg_color="#1e1e1e")
 
