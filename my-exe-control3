@@ -6,7 +6,7 @@ import re
 import sys
 import tkinter as tk
 import inspect
-
+import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
@@ -7747,7 +7747,7 @@ def go_back_to_main(current_frame, account, password):
 
 # 初始化主窗口
 root = ctk.CTk()
-root.title("冷知识，生鱼片是死鱼片。")
+root.title("月亮很圆")
 root.geometry("600x420")
 root.configure(fg_color="#1e1e1e")
 
