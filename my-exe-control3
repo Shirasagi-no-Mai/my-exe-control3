@@ -165,7 +165,7 @@ def FDA_program(account, password, output_text):
     else:
         update_output_text(output_text, "未找到有效的桌面路径\n\n")
         sys.exit()  # 程序立即停止
-
+    
     def get_fda_entry_status(entry_number):
         url = f"https://www.access.fda.gov/itacs/ws/api/submission/{entry_number}/?feiNum=null&token=0cAFcWeA4bdocblwHFTljvFqa3R0J9MmTPnL4y3c-ZWc-dFVlUW6_ua7RrUeBfJZ0eWw5OZvzUiHzYbi8jxmuzPPYdP6qb2t7565VZOVd8ETPtIGW9oavQ8Sy9Mv-zTGtfgcSX3WSzOjamHdgWysPtHC55CBPM_aHvqmHRbDEofVrqyjU-tJ6sn5cNO7sTffZ-DVwTjJwGgUC3GCUyXr-ExK7NYuJK44maAlK5jRtgwCbb4g-YjzCLK2dQNgn31pf8j0MMwjCq3cmEIYBG8dvH2pGVipjf4cRvI3ID0NBpFGPKT-B4CHg3wU5Pcx7oju6WUeldAN30Qnn7I_Rt3MC4VvxKwt3sye_IynRWC5McJ0nlFySsnD-qWuIuFGXNl-FFid8Te6BunF_xtljwm1TKFSZ7aug-SLt44dzCL_ljLCoWVVXh0j64_JWNDknU1VqbfycWggHlPF1Txgh1_6Z7jZw-DKXBZj9Vy8A-zefvyfX5yBgWUubsAEEV1JPHKIyc7n5JWPzj5SoZ8_5tFLKJJnv4mEHLC2HQI_Qs6AFidS3JQdfuUlk1Nnh9Llrw0TFCMzndL4FJPI2y9mV0LnRiL7OQHrX1pa1wNFkHdMrmWoPLo89rHtftYKyuOp6IegWoha1CsivbD2SqyLGvPtxlXEdG2oOaH7OUEvWMNIp1S52Pzn5_9zYc2t9ddLmPskozKl78np2VEDmaAOFX5dvNYaXALBd8D2uIILPcg9d3Ux-p2D3k9CTNRLXRtO8IafAAJTefdCHxjyF5Kz1t-vPEE1u9jTOk1DkunSaVDsTgpvRvvDqebSOstg3Rn0tXd7-B1rpEJHwz09PU0-4vgPlwmAMTF6cFleF8mhG0D4nIaD2B9oa-9ryTUeo5jticNmeR3G9yBRNEXThh6bE1jZl2xRgmGgIZqHQXa2RC7j1r_cK4VoIv0r6Uq8Vg8JZI_boZsyncT3wyBzdkN17HUxglEVK8eR5zf1vUlU3iHmCiTHWsuyGaq6V2ie-N8admgEL5s3H6dqDdUYY961Ko4KkwZ3nhXMv9764I0QmxMk5Dkt-atvtwJr2Cqy6VRrims4S9ddVh1wdwRXOzf7FonHS6yiiM63sfMOSI7kyz0q3Xvn0bI9nIR1wTJydrsOdXkACwOaKCqCdZQCWUub23FPNXRAB2WUblWG_2bw-LdD5A2uxtHMnhPcFcVjGLeU4e8B2BBABuernaMTtTkYGJUzuZVhydvn8ITs538lPX-hKKWAdWaczpNPfuWc_jPM9zh5bAPQ82oqhWJd1ESMrCcyaZLojKjnGiDBaOGLiqAS6JfP8-nyHQaMySSXcnnaYicV7qxK65q282qZBa5s63-wC8bR6Q0unzZUWZXRwkO84Q0jxxcwizSD8quAZFLPSQbQFK8WPBW66eRk0rANpp8aGROxGWIBW4gg8PWSDFlX5mG8foUpV-eVUE9kXF8pbBl4SVxtacaMjvFV0hmhvnE5V4fbWlNQmvjC9_DhDAU5vKoTgOc0BPTXSbXKulLa23w8eL7SNcBFzSOy0cOfk5TqJxLajRV6dWBJuIY2LfWnhJTPOen3Vei-PUVKDygWvr8L6kmWKbIAqtE1HNMKSYgOEKtyfJdBNRNzZS-w"
 
@@ -190,35 +190,47 @@ def FDA_program(account, password, output_text):
         except (ConnectionError, Timeout, RequestException) as e:
             print(f"请求失败: {e}")
             return "N/A"
-
+    
     def get_cpsc_entry_status(entry_number):
         url = "https://www.cpsc.gov/shipmenttracking/api/entries"
-
+    
         headers = {
             "accept": "*/*",
             "content-type": "application/json",
             "origin": "https://www.cpsc.gov",
             "referer": "https://www.cpsc.gov/shipmenttracking/",
-            "user-agent": "Mozilla/5.0 (X11; Linux aarch64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36 CrKey/1.54.250320"
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
+            "x-api-key": "653a8dbe544d46bcb3f0a7efb0b9238634bb754b66e94582b2b965409cbec670",
         }
+    
+        cookies = {
+            "_ga": "GA1.1.980843979.1760505120",
+            "_hjSessionUser_3799316": "eyJpZCI6ImEyZmRiZjViLWQ4MTEtNWZmNi1iNTNjLTIxZjY5NzVkZWY0NiIsImNyZWF0ZWQiOjE3NjA1MDUxMjA2NjIsImV4aXN0aW5nIjp0cnVlfQ==",
+            "_hjSession_3799316": "eyJpZCI6ImJhZWE1MGRiLWJiZWQtNDg5Mi04MjMyLTMxMDI4YmZhYTMyNyIsImMiOjE3NjMzNjA2MDI4NTIsInMiOjAsInIiOjAsInNiIjowLCJzciI6MCwic2UiOjAsImZzIjowLCJzcCI6MH0=",
+            "_ga_55LVJ78J3V": "GS2.1.s1763360602$o2$g1$t1763360612$j50$l0$h0",
+            "_ga_CSLL4ZEK4L": "GS2.1.s1763360602$o2$g1$t1763360612$j50$l0$h0",
+            "_ga_XM65T6P0GR": "GS2.1.s1763360602$o2$g1$t1763360612$j50$l0$h0",
+        }
+    
         payload = {
             "entry_number": entry_number,
             "entry_line_number": "",
             "page_number": "",
             "page_size": ""
         }
-
+    
         session = requests.Session()
         retries = Retry(total=3, backoff_factor=1, status_forcelist=[502, 503, 504])
         session.mount('https://', HTTPAdapter(max_retries=retries))
-
+    
         try:
-            response = session.post(url, headers=headers, json=payload, timeout=30)
-            response.raise_for_status()  # 如果不是 200，会抛异常
+            response = session.post(url, headers=headers, cookies=cookies, json=payload, timeout=30)
+            response.raise_for_status()
             return response.json()
-        except (ConnectionError, Timeout, RequestException) as e:
+        except Exception as e:
             print(f"请求失败: {e}")
             return "N/A"
+
 
     data = get_cpsc_entry_status('NUP18426901')
     print(data)
@@ -7747,7 +7759,7 @@ def go_back_to_main(current_frame, account, password):
 
 # 初始化主窗口
 root = ctk.CTk()
-root.title("如果只有inbond提取用不了 记得第三列加上61/62/63")
+root.title("～")
 root.geometry("600x420")
 root.configure(fg_color="#1e1e1e")
 
