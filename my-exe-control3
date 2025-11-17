@@ -200,7 +200,6 @@ def FDA_program(account, password, output_text):
             "origin": "https://www.cpsc.gov",
             "referer": "https://www.cpsc.gov/shipmenttracking/",
             "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
-            "x-api-key": "653a8dbe544d46bcb3f0a7efb0b9238634bb754b66e94582b2b965409cbec670",
         }
     
         cookies = {
