@@ -4,13 +4,6 @@ from selenium.common.exceptions import ElementNotInteractableException
 from openpyxl.styles import PatternFill
 import re
 import sys
-from bs4 import BeautifulSoup
-from selenium.common.exceptions import (
-    ElementNotInteractableException,
-    NoAlertPresentException,
-    NoSuchElementException,
-    TimeoutException
-)
 import tkinter as tk
 import inspect
 import pandas as pd
@@ -74,10 +67,14 @@ def fetch_expiration_date():
 expiration_date1 = fetch_expiration_date()
 print(f"expiration_date1: {expiration_date1}")
 
+
+
+
+
+
 # ② 功能权限配置
 # ----------------------------
 PERMISSION_URL = "https://raw.githubusercontent.com/Shirasagi-no-Mai/my-exe-control2/refs/heads/main/onlinecode"
-
 
 def fetch_permissions():
     """从远程读取功能权限列表"""
@@ -111,12 +108,21 @@ permissions = fetch_permissions()
 print("权限列表示例：")
 print(json.dumps(permissions, indent=2, ensure_ascii=False))
 
+
+
+
+
+
+
+
 # *************************通过个人网页更新过期日期*************************************************************************
 
 
 # *************************预设*****************************************************************************************
-windowname = ""
+
 # 更新输出文本框
+windowname = ""
+from selenium.common.exceptions import UnexpectedAlertPresentException, ElementClickInterceptedException
 
 
 def update_output_text(output_text, message):
@@ -159,7 +165,7 @@ def FDA_program(account, password, output_text):
     else:
         update_output_text(output_text, "未找到有效的桌面路径\n\n")
         sys.exit()  # 程序立即停止
-
+    
     def get_fda_entry_status(entry_number):
         url = f"https://www.access.fda.gov/itacs/ws/api/submission/{entry_number}/?feiNum=null&token=0cAFcWeA4bdocblwHFTljvFqa3R0J9MmTPnL4y3c-ZWc-dFVlUW6_ua7RrUeBfJZ0eWw5OZvzUiHzYbi8jxmuzPPYdP6qb2t7565VZOVd8ETPtIGW9oavQ8Sy9Mv-zTGtfgcSX3WSzOjamHdgWysPtHC55CBPM_aHvqmHRbDEofVrqyjU-tJ6sn5cNO7sTffZ-DVwTjJwGgUC3GCUyXr-ExK7NYuJK44maAlK5jRtgwCbb4g-YjzCLK2dQNgn31pf8j0MMwjCq3cmEIYBG8dvH2pGVipjf4cRvI3ID0NBpFGPKT-B4CHg3wU5Pcx7oju6WUeldAN30Qnn7I_Rt3MC4VvxKwt3sye_IynRWC5McJ0nlFySsnD-qWuIuFGXNl-FFid8Te6BunF_xtljwm1TKFSZ7aug-SLt44dzCL_ljLCoWVVXh0j64_JWNDknU1VqbfycWggHlPF1Txgh1_6Z7jZw-DKXBZj9Vy8A-zefvyfX5yBgWUubsAEEV1JPHKIyc7n5JWPzj5SoZ8_5tFLKJJnv4mEHLC2HQI_Qs6AFidS3JQdfuUlk1Nnh9Llrw0TFCMzndL4FJPI2y9mV0LnRiL7OQHrX1pa1wNFkHdMrmWoPLo89rHtftYKyuOp6IegWoha1CsivbD2SqyLGvPtxlXEdG2oOaH7OUEvWMNIp1S52Pzn5_9zYc2t9ddLmPskozKl78np2VEDmaAOFX5dvNYaXALBd8D2uIILPcg9d3Ux-p2D3k9CTNRLXRtO8IafAAJTefdCHxjyF5Kz1t-vPEE1u9jTOk1DkunSaVDsTgpvRvvDqebSOstg3Rn0tXd7-B1rpEJHwz09PU0-4vgPlwmAMTF6cFleF8mhG0D4nIaD2B9oa-9ryTUeo5jticNmeR3G9yBRNEXThh6bE1jZl2xRgmGgIZqHQXa2RC7j1r_cK4VoIv0r6Uq8Vg8JZI_boZsyncT3wyBzdkN17HUxglEVK8eR5zf1vUlU3iHmCiTHWsuyGaq6V2ie-N8admgEL5s3H6dqDdUYY961Ko4KkwZ3nhXMv9764I0QmxMk5Dkt-atvtwJr2Cqy6VRrims4S9ddVh1wdwRXOzf7FonHS6yiiM63sfMOSI7kyz0q3Xvn0bI9nIR1wTJydrsOdXkACwOaKCqCdZQCWUub23FPNXRAB2WUblWG_2bw-LdD5A2uxtHMnhPcFcVjGLeU4e8B2BBABuernaMTtTkYGJUzuZVhydvn8ITs538lPX-hKKWAdWaczpNPfuWc_jPM9zh5bAPQ82oqhWJd1ESMrCcyaZLojKjnGiDBaOGLiqAS6JfP8-nyHQaMySSXcnnaYicV7qxK65q282qZBa5s63-wC8bR6Q0unzZUWZXRwkO84Q0jxxcwizSD8quAZFLPSQbQFK8WPBW66eRk0rANpp8aGROxGWIBW4gg8PWSDFlX5mG8foUpV-eVUE9kXF8pbBl4SVxtacaMjvFV0hmhvnE5V4fbWlNQmvjC9_DhDAU5vKoTgOc0BPTXSbXKulLa23w8eL7SNcBFzSOy0cOfk5TqJxLajRV6dWBJuIY2LfWnhJTPOen3Vei-PUVKDygWvr8L6kmWKbIAqtE1HNMKSYgOEKtyfJdBNRNzZS-w"
 
@@ -184,10 +190,10 @@ def FDA_program(account, password, output_text):
         except (ConnectionError, Timeout, RequestException) as e:
             print(f"请求失败: {e}")
             return "N/A"
-
+    
     def get_cpsc_entry_status(entry_number):
         url = "https://www.cpsc.gov/shipmenttracking/api/entries"
-
+    
         headers = {
             "accept": "*/*",
             "content-type": "application/json",
@@ -195,7 +201,7 @@ def FDA_program(account, password, output_text):
             "referer": "https://www.cpsc.gov/shipmenttracking/",
             "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
         }
-
+    
         cookies = {
             "_ga": "GA1.1.980843979.1760505120",
             "_hjSessionUser_3799316": "eyJpZCI6ImEyZmRiZjViLWQ4MTEtNWZmNi1iNTNjLTIxZjY5NzVkZWY0NiIsImNyZWF0ZWQiOjE3NjA1MDUxMjA2NjIsImV4aXN0aW5nIjp0cnVlfQ==",
@@ -204,18 +210,18 @@ def FDA_program(account, password, output_text):
             "_ga_CSLL4ZEK4L": "GS2.1.s1763360602$o2$g1$t1763360612$j50$l0$h0",
             "_ga_XM65T6P0GR": "GS2.1.s1763360602$o2$g1$t1763360612$j50$l0$h0",
         }
-
+    
         payload = {
             "entry_number": entry_number,
             "entry_line_number": "",
             "page_number": "",
             "page_size": ""
         }
-
+    
         session = requests.Session()
         retries = Retry(total=3, backoff_factor=1, status_forcelist=[502, 503, 504])
         session.mount('https://', HTTPAdapter(max_retries=retries))
-
+    
         try:
             response = session.post(url, headers=headers, cookies=cookies, json=payload, timeout=30)
             response.raise_for_status()
@@ -223,6 +229,7 @@ def FDA_program(account, password, output_text):
         except Exception as e:
             print(f"请求失败: {e}")
             return "N/A"
+
 
     data = get_cpsc_entry_status('NUP18426901')
     print(data)
@@ -2066,7 +2073,7 @@ def query_program(account, password, output_text):
                 sheet.append(
                     ['Master BOL Number', 'Carrier Code', 'Vessel', 'Voyage/Flight No', 'Arrival Date', 'FIRMS',
                      '1D Count', '1H Count', '1A Count', '2H Count', '1I Count', '2I Count', '1C Count', '1B Count',
-                     'House', 'port', 'qty', "1R Count", "1X Count"])
+                     'House', 'port', 'qty',"1R Count","1X Count"])
 
             # 提取字段，每个字段都 try-except 防止报错
             def safe_extract(label, func):
@@ -2094,7 +2101,7 @@ def query_program(account, password, output_text):
             qty = safe_extract("qty", lambda: first_record.get('houses', [{}])[0].get('manifestQty', 'N/A'))
 
             # 统计 dispositionCode
-            disposition_codes = ['1D', '1H', '1A', '2H', '1I', '2I', '1B', "1R", "1X"]
+            disposition_codes = ['1D', '1H', '1A', '2H', '1I', '2I', '1B',"1R","1X"]
             all_disp_codes = []
 
             for house in first_record.get('houses', []):
@@ -2121,12 +2128,13 @@ def query_program(account, password, output_text):
             count_1r = code_counts.get('1R', 0)
             count_1x = code_counts.get('1X', 0)
 
+
             qty = count_1h + count_2h + count_1a - count_1i - count_2i - count_1B
             # 写入 Excel
             sheet.append([
                 master_bol_number, carrier_code, vessel, voyage_flight_no, arrival_date, firms,
                 count_1d, count_1h, count_1a, count_2h, count_1i, count_2i, count_1c,
-                count_1B, hawb_number, actual_port_of_unlading, qty, count_1r, count_1x
+                count_1B, hawb_number, actual_port_of_unlading, qty,count_1r,count_1x
             ])
 
             red_fill = PatternFill(start_color="FF9999", end_color="FF9999", fill_type="solid")
@@ -2174,6 +2182,9 @@ def query_program(account, password, output_text):
     for mawb in mawb_list:
         checkstatus(token, mawb, output_path)
     update_output_text(output_text, "操作已完成请检查master数量\n\n")
+
+
+
 
 
 def QP_program(account, password, output_text):
@@ -2321,6 +2332,12 @@ def QP_program(account, password, output_text):
     driver.quit()
 
 
+
+
+
+
+
+
 def line_extract(account, password, output_text):
     expiration_date = expiration_date1
     now = datetime.now()
@@ -2351,8 +2368,7 @@ def line_extract(account, password, output_text):
         sys.exit()
 
     # Step 3 — 找文件
-    excel_files = [f for f in os.listdir(folder_path) if
-                   f.lower().endswith(('.xls', '.xlsx')) and not f.startswith('~$')]
+    excel_files = [f for f in os.listdir(folder_path) if f.lower().endswith(('.xls', '.xlsx')) and not f.startswith('~$')]
     packing_list_file = None
     invoice_file = None
     for file in excel_files:
@@ -2398,25 +2414,41 @@ def line_extract(account, password, output_text):
     # 读取 df (BBCreview.xlsx 第一列)
     df_file = os.path.join(desktop_path, "BBCreview.xlsx")
     df = pd.read_excel(df_file, header=None, dtype=str)
-
+    
     first_column_list = df.iloc[:, 0].dropna().tolist()
-
+    
     # 用于记录补了0的值
     padded_values = []
-
+    
     # 处理每个值，不足12位前面补0
     for i in range(len(first_column_list)):
         original = first_column_list[i]
         if len(original) < 12:
             first_column_list[i] = original.zfill(12)
             padded_values.append(first_column_list[i])
-
+    
     # 输出处理后的列表
     update_output_text(output_text, first_column_list)
-
+    
     # 如果有补0的，输出提示
     if padded_values:
         update_output_text(output_text, f"这些补了0: {padded_values}")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     result_dict = {}
     for val in first_column_list:
@@ -2483,7 +2515,6 @@ def line_extract(account, password, output_text):
             update_output_text(output_text, f"🗑 删除临时解密文件: {file}\n")
 
     update_output_text(output_text, "✅ 完成所有步骤\n")
-
 
 def Nikki_template(account, password, output_text):
     expiration_date = expiration_date1
@@ -2669,7 +2700,6 @@ def Nikki_template(account, password, output_text):
 
     update_output_text(output_text, f"✅ 拆分完成，共生成 {num_files} 个 Excel 文件。\n\n")
 
-
 def wechat(account, password, output_text):
     from seleniumwire import webdriver
     chrome_options = webdriver.ChromeOptions()
@@ -2692,8 +2722,7 @@ def wechat(account, password, output_text):
     driver.maximize_window()  # 最大化窗口
 
     all_tabs = driver.window_handles
-    all_tabs = driver.window_handles
-
+    all_tabs = driver.window_handles 
 
 def reverse_line_extract(account, password, output_text):
     expiration_date = expiration_date1
@@ -2725,8 +2754,7 @@ def reverse_line_extract(account, password, output_text):
         sys.exit()
 
     # Step 3 — 找文件
-    excel_files = [f for f in os.listdir(folder_path) if
-                   f.lower().endswith(('.xls', '.xlsx')) and not f.startswith('~$')]
+    excel_files = [f for f in os.listdir(folder_path) if f.lower().endswith(('.xls', '.xlsx')) and not f.startswith('~$')]
     packing_list_file = None
     invoice_file = None
     for file in excel_files:
@@ -2793,8 +2821,8 @@ def reverse_line_extract(account, password, output_text):
         # 找 invoice 中对应行 (BJ=entry_val, BL=line_val)
         matches = df_invoice[
             (df_invoice.iloc[:, 61].astype(str).str.strip() == entry_val) &  # BJ列
-            (df_invoice.iloc[:, 63].astype(str).str.strip() == line_val)  # BL列
-            ]
+            (df_invoice.iloc[:, 63].astype(str).str.strip() == line_val)     # BL列
+        ]
 
         if matches.empty:
             update_output_text(output_text, f"⚠️ 没有找到对应 entry:{entry_val} line:{line_val} 的 Invoice 数据\n")
@@ -2814,8 +2842,7 @@ def reverse_line_extract(account, password, output_text):
 
         # 写入第五列
         ws.cell(row=row_idx, column=5, value=aa_match if aa_match else "N/A")
-        update_output_text(output_text,
-                           f"匹配 entry:{entry_val}, line:{line_val} -> {aa_match if aa_match else 'N/A'}\n")
+        update_output_text(output_text, f"匹配 entry:{entry_val}, line:{line_val} -> {aa_match if aa_match else 'N/A'}\n")
 
     wb.save(df_file)
 
@@ -2826,6 +2853,7 @@ def reverse_line_extract(account, password, output_text):
             update_output_text(output_text, f"🗑 删除临时解密文件: {file}\n")
 
     update_output_text(output_text, "✅ 完成反向提取步骤\n")
+
 
 
 def document_program(account, password, output_text):
@@ -3263,6 +3291,7 @@ def document_program(account, password, output_text):
         time.sleep(1)
         update_output_text(output_text, f"{entry_number}结束")
     update_output_text(output_text, "全部完成")
+
 
 
 def release_program(account, password, output_text):
@@ -3863,7 +3892,6 @@ def release_program(account, password, output_text):
         time.sleep(1)
         update_output_text(output_text, f"{entry_number}结束")
     update_output_text(output_text, "全部完成")
-
 
 def bolupdate_program(account, password, output_text):
     expiration_date = expiration_date1
@@ -5257,6 +5285,7 @@ def BBC_review_program(account, password, output_text):
     except (TimeoutException, NoSuchElementException) as e:
         print(f"Error occurred during login: {e}")
 
+
     def get_cookies_from_selenium(driver):
         cookies = driver.get_cookies()
         # 把 selenium 的 cookie 转成 requests 能用的格式
@@ -5426,6 +5455,7 @@ def BBC_review_program(account, password, output_text):
     wb.save(file_path)
     wb.close()
     update_output_text(output_text, "代码完成\n\n")
+
 
 
 def transmit_program(account, password, output_text):
@@ -5817,732 +5847,6 @@ def hold_program(account, password, output_text, inputnum):
 
     update_output_text(output_text, current_title)
     input("按 Enter 键关闭浏览器...")
-    driver.quit()
-
-
-def statuschange_program(account, password, output_text):
-    expiration_date = expiration_date1
-    now = datetime.now()
-    func_name = inspect.currentframe().f_code.co_name  # 自动获取当前函数名
-
-    if expiration_date and now > expiration_date:
-        if not is_user_allowed(func_name, account):
-            update_output_text(output_text, "程序已过期，请联系Larry获取更新版本。\n\n")
-            exit()
-
-    # 获取用户主目录
-    user_home = os.path.expanduser("~")
-
-    # 检测可能的桌面路径
-    possible_paths = [
-        os.path.join(user_home, "Desktop"),
-        os.path.join(user_home, "桌面"),
-        os.path.join(user_home, "OneDrive", "Desktop"),
-        os.path.join(user_home, "OneDrive", "桌面")
-    ]
-
-    # 查找存在的桌面路径
-    desktop_path = next((path for path in possible_paths if os.path.exists(path)), None)
-
-    if desktop_path:
-        file_path = os.path.join(desktop_path, "extract.xlsx")
-        if os.path.exists(file_path):
-            update_output_text(output_text, f"找到文件：{file_path}\n")
-        else:
-            # 创建空的 Excel 文件
-            wb = Workbook()
-            wb.save(file_path)
-            update_output_text(output_text, f"未找到文件，已创建新文件：{file_path}\n")
-            sys.exit()  # 程序立即停止
-    else:
-        update_output_text(output_text, "未找到有效的桌面路径\n")
-        sys.exit()  # 程序立即停止
-
-    # 读取 Excel 文件
-    df = pd.read_excel(file_path, header=None, dtype=str)  # 如果没有列名，使用 header=None
-
-    # 通过 iloc 访问第一列（假设是 A 列）
-    a_column = df.iloc[:, 0]  # 选择第一列
-
-    # 过滤掉 'na' 和 NaN 值
-    filtered_list = a_column[a_column.notna() & (a_column != 'na')].tolist()
-    update_output_text(output_text, f"所有需要处理的inbond: {filtered_list}\n")
-
-    try:
-        # 配置 ChromeOptions
-        options = webdriver.ChromeOptions()
-        chrome_binary = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
-        options.binary_location = chrome_binary
-        options.add_argument("--no-sandbox")
-        options.add_argument("--disable-dev-shm-usage")
-
-        # 检查 Chrome 可执行文件是否存在
-        if os.path.exists(chrome_binary):
-            update_output_text(output_text, f"Chrome 可执行文件存在: {chrome_binary}\n")
-        else:
-            update_output_text(output_text, f"Chrome 可执行文件不存在: {chrome_binary}\n")
-            raise FileNotFoundError(f"Chrome 可执行文件未找到: {chrome_binary}")
-
-        # 获取 ChromeDriver 路径和版本
-        try:
-            driver_path = ChromeDriverManager().install()
-            update_output_text(output_text, f"ChromeDriver 路径: {driver_path}\n")
-            # 检查 ChromeDriver 版本
-            driver_version = subprocess.check_output([driver_path, "--version"]).decode().strip()
-            update_output_text(output_text, f"ChromeDriver 版本: {driver_version}\n")
-        except Exception as e:
-            update_output_text(output_text, f"获取 ChromeDriver 路径或版本失败: {str(e)}\n")
-            raise
-
-        # 检查系统 PATH
-        system_path = os.environ.get("PATH", "")
-        update_output_text(output_text, f"系统 PATH: {system_path}\n")
-
-        # 初始化 Chrome 浏览器
-        update_output_text(output_text, "开始初始化 ChromeDriver...\n")
-        driver = webdriver.Chrome(service=Service(driver_path), options=options)
-        update_output_text(output_text, "ChromeDriver 初始化成功\n")
-
-    except webdriver.WebDriverException as wde:
-        update_output_text(output_text, f"初始化 ChromeDriver 失败 (WebDriverException): {str(wde)}\n")
-        update_output_text(output_text, f"堆栈跟踪: {traceback.format_exc()}\n")
-        raise
-    except FileNotFoundError as fnfe:
-        update_output_text(output_text, f"初始化 ChromeDriver 失败 (FileNotFoundError): {str(fnfe)}\n")
-        raise
-    except Exception as e:
-        update_output_text(output_text, f"初始化 ChromeDriver 失败 (未知错误): {str(e)}\n")
-        update_output_text(output_text, f"堆栈跟踪: {traceback.format_exc()}\n")
-        raise
-    url = "https://www.netchb.com/app/home.do"
-    driver.get(url)
-
-    WebDriverWait(driver, 20).until(
-        EC.presence_of_element_located((By.XPATH, '//*[@id="lName"]'))
-    ).send_keys(account)
-
-    # 等待 Password 输入框出现并输入密码
-    WebDriverWait(driver, 20).until(
-        EC.presence_of_element_located((By.XPATH, '//*[@id="pass"]'))
-    ).send_keys(password)
-
-    xpath = '//*[@id="loginForm"]/div[2]/input'
-    login_button = driver.find_element(By.XPATH, xpath)
-    login_button.click()
-    target_url = f"https://www.netchb.com/app/inbond/inbondMenu.do?itNo={'054294590'}"
-    # 打开页面
-    driver.get(target_url)
-    # 遍历 filtered_list 中的每个项目
-    for item in filtered_list:
-
-        if windowname != "task":
-            update_output_text(output_text, "窗口已关闭，程序终止。\n")
-            sys.exit()  # 窗口已关闭，退出程序
-
-        target_url = f"https://www.netchb.com/app/inbond/inbondMenu.do?itNo={item}"
-        # 打开页面
-        driver.get(target_url)
-
-        current_title = driver.title
-        update_output_text(output_text, f"正在处理 {item}")
-
-        try:
-            # 查找特定的元素，增加最长等待时间
-            element_xpath = '/html/body/table/tbody/tr[2]/td[1]/table[1]/tbody/tr[10]/td[2]/a'
-
-            # 等待最多 20 秒，直到元素可点击
-            element = WebDriverWait(driver, 50).until(
-                EC.element_to_be_clickable((By.XPATH, element_xpath))
-            )
-
-            # 如果元素存在并且可点击，点击它
-            element.click()
-
-            # 等待新页面加载完成
-            select_xpath = '//*[@id="changeInbondStatusTo"]'
-            select_element = WebDriverWait(driver, 20).until(
-                EC.presence_of_element_located((By.XPATH, select_xpath))
-            )
-
-            # 使用 Select 类选择 "Accepted" 选项
-            select = Select(select_element)
-            select.select_by_value("ACCEPTED")  # 使用 value 属性选择 "Accepted"
-
-            update_output_text(output_text, f"Successfully selected 'Accepted' for {item}.")
-
-            button_xpath = '//*[@id="changeInbondStatusButton"]'
-            target_button = WebDriverWait(driver, 20).until(
-                EC.element_to_be_clickable((By.XPATH, button_xpath))
-            )
-            target_button.click()
-            update_output_text(output_text, f"Successfully clicked the target button for {item}.")
-
-        except Exception as e:
-            # 如果元素未找到或不可点击，打印消息
-            update_output_text(output_text, f"没有找到元素或发生错误 {item}！错误: {e}")
-
-    # 等待用户输入后关闭浏览器
-    input("按 Enter 键关闭浏览器...")
-    driver.quit()
-
-
-def del_program(account, password, output_text):
-    expiration_date = expiration_date1
-    now = datetime.now()
-    func_name = inspect.currentframe().f_code.co_name  # 自动获取当前函数名
-
-    if expiration_date and now > expiration_date:
-        if not is_user_allowed(func_name, account):
-            update_output_text(output_text, "程序已过期，请联系Larry获取更新版本。\n\n")
-            exit()
-
-    # 获取用户主目录
-    user_home = os.path.expanduser("~")
-
-    # 检测可能的桌面路径
-    possible_paths = [
-        os.path.join(user_home, "Desktop"),
-        os.path.join(user_home, "桌面"),
-        os.path.join(user_home, "OneDrive", "Desktop"),
-        os.path.join(user_home, "OneDrive", "桌面")
-    ]
-
-    # 查找存在的桌面路径
-    desktop_path = next((path for path in possible_paths if os.path.exists(path)), None)
-
-    if desktop_path:
-        file_path = os.path.join(desktop_path, "extract.xlsx")
-        if os.path.exists(file_path):
-            update_output_text(output_text, f"找到文件：{file_path}\n")
-        else:
-            # 创建空的 Excel 文件
-            wb = Workbook()
-            wb.save(file_path)
-            update_output_text(output_text, f"未找到文件，已创建新文件：{file_path}\n")
-            sys.exit()  # 程序立即停止
-    else:
-        update_output_text(output_text, "未找到有效的桌面路径\n")
-        sys.exit()  # 程序立即停止
-
-    # 读取 Excel 文件
-    df = pd.read_excel(file_path, header=None, dtype=str)  # 如果没有列名，使用 header=None
-
-    # 通过 iloc 访问第一列（假设是 A 列）
-    a_column = df.iloc[:, 0]  # 选择第一列
-
-    # 过滤掉 'na' 和 NaN 值
-    filtered_list = a_column[a_column.notna() & (a_column != 'na')].tolist()
-    update_output_text(output_text, f"所有需要操作的inbond: {filtered_list}\n")
-
-    try:
-        # 配置 ChromeOptions
-        options = webdriver.ChromeOptions()
-        chrome_binary = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
-        options.binary_location = chrome_binary
-        options.add_argument("--no-sandbox")
-        options.add_argument("--disable-dev-shm-usage")
-
-        # 检查 Chrome 可执行文件是否存在
-        if os.path.exists(chrome_binary):
-            update_output_text(output_text, f"Chrome 可执行文件存在: {chrome_binary}\n")
-        else:
-            update_output_text(output_text, f"Chrome 可执行文件不存在: {chrome_binary}\n")
-            raise FileNotFoundError(f"Chrome 可执行文件未找到: {chrome_binary}")
-
-        # 获取 ChromeDriver 路径和版本
-        try:
-            driver_path = ChromeDriverManager().install()
-            update_output_text(output_text, f"ChromeDriver 路径: {driver_path}\n")
-            # 检查 ChromeDriver 版本
-            driver_version = subprocess.check_output([driver_path, "--version"]).decode().strip()
-            update_output_text(output_text, f"ChromeDriver 版本: {driver_version}\n")
-        except Exception as e:
-            update_output_text(output_text, f"获取 ChromeDriver 路径或版本失败: {str(e)}\n")
-            raise
-
-        # 检查系统 PATH
-        system_path = os.environ.get("PATH", "")
-        update_output_text(output_text, f"系统 PATH: {system_path}\n")
-
-        # 初始化 Chrome 浏览器
-        update_output_text(output_text, "开始初始化 ChromeDriver...\n")
-        driver = webdriver.Chrome(service=Service(driver_path), options=options)
-        update_output_text(output_text, "ChromeDriver 初始化成功\n")
-
-    except webdriver.WebDriverException as wde:
-        update_output_text(output_text, f"初始化 ChromeDriver 失败 (WebDriverException): {str(wde)}\n")
-        update_output_text(output_text, f"堆栈跟踪: {traceback.format_exc()}\n")
-        raise
-    except FileNotFoundError as fnfe:
-        update_output_text(output_text, f"初始化 ChromeDriver 失败 (FileNotFoundError): {str(fnfe)}\n")
-        raise
-    except Exception as e:
-        update_output_text(output_text, f"初始化 ChromeDriver 失败 (未知错误): {str(e)}\n")
-        update_output_text(output_text, f"堆栈跟踪: {traceback.format_exc()}\n")
-        raise
-    url = "https://www.netchb.com/app/home.do"
-    driver.get(url)
-
-    WebDriverWait(driver, 20).until(
-        EC.presence_of_element_located((By.XPATH, '//*[@id="lName"]'))
-    ).send_keys(account)
-
-    # 等待 Password 输入框出现并输入密码
-    WebDriverWait(driver, 20).until(
-        EC.presence_of_element_located((By.XPATH, '//*[@id="pass"]'))
-    ).send_keys(password)
-
-    xpath = '//*[@id="loginForm"]/div[2]/input'
-    login_button = driver.find_element(By.XPATH, xpath)
-    login_button.click()
-    target_url = f"https://www.netchb.com/app/inbond/inbondMenu.do?itNo={'054294590'}"
-    # 打开页面
-    driver.get(target_url)
-    # 遍历 filtered_list 中的每个项目
-
-    for item in filtered_list:
-        if windowname != "task":
-            update_output_text(output_text, "窗口已关闭，程序终止。\n")
-            sys.exit()  # 窗口已关闭，退出程序
-        target_url = f"https://www.netchb.com/app/inbond/inbondMenu.do?itNo={item}"
-        # 打开页面
-        driver.get(target_url)
-
-        current_title = driver.title
-        update_output_text(output_text, f"正在处理{item}\n")
-
-        try:
-            # 查找特定的元素，增加最长等待时间
-            element_xpath = '/html/body/table/tbody/tr[2]/td[1]/table[1]/tbody/tr[8]/td[2]/a'
-
-            # 等待最多 20 秒，直到元素可点击
-            element = WebDriverWait(driver, 50).until(
-                EC.element_to_be_clickable((By.XPATH, element_xpath))
-            )
-
-            # 如果元素存在并且可点击，点击它
-            element.click()
-            try:
-                # 查找特定的元素，增加最长等待时间
-                element_xpath = '/html/body/table/tbody/tr[2]/td[2]/table[3]/tbody/tr[2]/td/input'
-
-                # 等待最多 20 秒，直到元素可点击
-                element = WebDriverWait(driver, 50).until(
-                    EC.element_to_be_clickable((By.XPATH, element_xpath))
-                )
-
-                # 如果元素存在并且可点击，点击它
-                element.click()
-
-
-            except Exception as e:
-                update_output_text(output_text, f"点击确认按钮时出错：{e}\n")
-
-                # 如果元素未找到或不可点击，打印消息
-
-        except Exception as e:
-            # 如果元素未找到或不可点击，打印消息
-            update_output_text(output_text, f"没有找到元素 {item} 的按钮！错误: {e}\n")
-
-    # 等待用户输入后关闭浏览器
-    input("按 Enter 键关闭浏览器...")
-    driver.quit()
-
-
-def delallinbond_program(account, password, output_text):
-    expiration_date = expiration_date1
-    now = datetime.now()
-    func_name = inspect.currentframe().f_code.co_name  # 自动获取当前函数名
-
-    if expiration_date and now > expiration_date:
-        if not is_user_allowed(func_name, account):
-            update_output_text(output_text, "程序已过期，请联系Larry获取更新版本。\n\n")
-            exit()
-
-    # 获取用户主目录
-    user_home = os.path.expanduser("~")
-
-    # 检测可能的桌面路径
-    possible_paths = [
-        os.path.join(user_home, "Desktop"),
-        os.path.join(user_home, "桌面"),
-        os.path.join(user_home, "OneDrive", "Desktop"),
-        os.path.join(user_home, "OneDrive", "桌面")
-    ]
-
-    # 查找存在的桌面路径
-    desktop_path = next((path for path in possible_paths if os.path.exists(path)), None)
-
-    if desktop_path:
-        file_path = os.path.join(desktop_path, "extract.xlsx")
-        if os.path.exists(file_path):
-            update_output_text(output_text, f"找到文件：{file_path}\n\n")
-        else:
-            # 创建空的 Excel 文件
-            wb = Workbook()
-            wb.save(file_path)
-            update_output_text(output_text, f"未找到文件，已创建新文件：{file_path}\n\n")
-            sys.exit()  # 程序立即停止
-    else:
-        update_output_text(output_text, "未找到有效的桌面路径\n")
-        sys.exit()  # 程序立即停止
-
-    # 读取 Excel 文件
-    df = pd.read_excel(file_path, header=None, dtype=str)  # 如果没有列名，使用 header=None
-
-    # 通过 iloc 访问第一列（假设是 A 列）
-    a_column = df.iloc[:, 0]  # 选择第一列
-
-    # 过滤掉 'na' 和 NaN 值
-    filtered_list = a_column[a_column.notna() & (a_column != 'na')].tolist()
-    update_output_text(output_text, f"所有需要操作的inbond: {filtered_list}\n")
-
-    try:
-        # 配置 ChromeOptions
-        options = webdriver.ChromeOptions()
-        chrome_binary = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
-        options.binary_location = chrome_binary
-        options.add_argument("--no-sandbox")
-        options.add_argument("--disable-dev-shm-usage")
-
-        # 检查 Chrome 可执行文件是否存在
-        if os.path.exists(chrome_binary):
-            update_output_text(output_text, f"Chrome 可执行文件存在: {chrome_binary}\n")
-        else:
-            update_output_text(output_text, f"Chrome 可执行文件不存在: {chrome_binary}\n")
-            raise FileNotFoundError(f"Chrome 可执行文件未找到: {chrome_binary}")
-
-        # 获取 ChromeDriver 路径和版本
-        try:
-            driver_path = ChromeDriverManager().install()
-            update_output_text(output_text, f"ChromeDriver 路径: {driver_path}\n")
-            # 检查 ChromeDriver 版本
-            driver_version = subprocess.check_output([driver_path, "--version"]).decode().strip()
-            update_output_text(output_text, f"ChromeDriver 版本: {driver_version}\n")
-        except Exception as e:
-            update_output_text(output_text, f"获取 ChromeDriver 路径或版本失败: {str(e)}\n")
-            raise
-
-        # 检查系统 PATH
-        system_path = os.environ.get("PATH", "")
-        update_output_text(output_text, f"系统 PATH: {system_path}\n")
-
-        # 初始化 Chrome 浏览器
-        update_output_text(output_text, "开始初始化 ChromeDriver...\n")
-        driver = webdriver.Chrome(service=Service(driver_path), options=options)
-        update_output_text(output_text, "ChromeDriver 初始化成功\n")
-
-    except webdriver.WebDriverException as wde:
-        update_output_text(output_text, f"初始化 ChromeDriver 失败 (WebDriverException): {str(wde)}\n")
-        update_output_text(output_text, f"堆栈跟踪: {traceback.format_exc()}\n")
-        raise
-    except FileNotFoundError as fnfe:
-        update_output_text(output_text, f"初始化 ChromeDriver 失败 (FileNotFoundError): {str(fnfe)}\n")
-        raise
-    except Exception as e:
-        update_output_text(output_text, f"初始化 ChromeDriver 失败 (未知错误): {str(e)}\n")
-        update_output_text(output_text, f"堆栈跟踪: {traceback.format_exc()}\n")
-        raise
-    url = "https://www.netchb.com/app/home.do"
-    driver.get(url)
-
-    WebDriverWait(driver, 20).until(
-        EC.presence_of_element_located((By.XPATH, '//*[@id="lName"]'))
-    ).send_keys(account)
-
-    # 等待 Password 输入框出现并输入密码
-    WebDriverWait(driver, 20).until(
-        EC.presence_of_element_located((By.XPATH, '//*[@id="pass"]'))
-    ).send_keys(password)
-
-    xpath = '//*[@id="loginForm"]/div[2]/input'
-    login_button = driver.find_element(By.XPATH, xpath)
-    login_button.click()
-    target_url = f"https://www.netchb.com/app/inbond/inbondMenu.do?itNo={'054294590'}"
-    # 打开页面
-    driver.get(target_url)
-    # 遍历 filtered_list 中的每个项目
-
-    for item in filtered_list:
-        if windowname != "task":
-            update_output_text(output_text, "窗口已关闭，程序终止。\n")
-            sys.exit()  # 窗口已关闭，退出程序
-        target_url = f"https://www.netchb.com/app/inbond/inbondMenu.do?itNo={item}"
-        # 打开页面
-        driver.get(target_url)
-
-        try:
-            # 等待页面加载
-            wait = WebDriverWait(driver, 10)
-            table_body = wait.until(
-                EC.presence_of_element_located((By.XPATH, '//*[@id="manifestBody"]'))
-            )
-
-            while True:
-                try:
-                    # 查找删除按钮并点击
-                    delete_button = driver.find_element(By.XPATH,
-                                                        '/html/body/table/tbody/tr[2]/td[2]/table[3]/tbody/tr/td[1]/table[2]/tbody/tr[4]/td[5]/input')
-                    delete_button.click()
-                    time.sleep(0.5)
-
-                    # 处理弹窗
-                    try:
-                        alert = driver.switch_to.alert  # 正确方式，直接访问 alert
-                        alert.accept()  # 点击确认按钮
-                        time.sleep(0.5)
-                    except NoAlertPresentException:
-                        update_output_text(output_text, f"没有弹窗，跳过弹窗处理。")
-
-                except NoSuchElementException:
-                    update_output_text(output_text, f"元素 {filter} 的删除按钮不存在，退出循环。")
-
-                    break
-
-        except Exception as e:
-            update_output_text(output_text, f"错误发生在 {filter}: {e}")
-
-
-def headeredit_program(account, password, output_text, inputnum):
-    expiration_date = expiration_date1
-    now = datetime.now()
-    func_name = inspect.currentframe().f_code.co_name  # 自动获取当前函数名
-
-    if expiration_date and now > expiration_date:
-        if not is_user_allowed(func_name, account):
-            update_output_text(output_text, "程序已过期，请联系Larry获取更新版本。\n\n")
-            exit()
-
-    user_home = os.path.expanduser("~")
-    possible_paths = [
-        os.path.join(user_home, "Desktop"),
-        os.path.join(user_home, "桌面"),
-        os.path.join(user_home, "OneDrive", "Desktop"),
-        os.path.join(user_home, "OneDrive", "桌面")
-    ]
-
-    desktop_path = next((path for path in possible_paths if os.path.exists(path)), None)
-
-    if desktop_path:
-        file_path = os.path.join(desktop_path, "extract.xlsx")
-        if os.path.exists(file_path):
-            update_output_text(output_text, f"找到文件：{file_path}\n\n")
-        else:
-            wb = Workbook()
-            wb.save(file_path)
-            update_output_text(output_text, f"未找到文件，已创建新文件：{file_path}\n\n")
-            sys.exit()
-    else:
-        update_output_text(output_text, "未找到有效的桌面路径\n\n")
-        sys.exit()
-
-    if desktop_path:
-        excel_path = os.path.join(desktop_path, "headeredit.xlsx")
-        if os.path.exists(excel_path):
-            update_output_text(output_text, f"找到文件：{excel_path}\n\n")
-        else:
-            wb = Workbook()
-            wb.save(excel_path)
-            update_output_text(output_text, f"未找到文件，已创建新文件：{excel_path}\n\n")
-            sys.exit()
-    else:
-        update_output_text(output_text, "未找到有效的桌面路径\n\n")
-        sys.exit()
-
-    if inputnum not in ["61", "63"]:
-        update_output_text(output_text, "无效输入，请输入61或63！\n\n")
-        exit()
-
-    try:
-        workbook = openpyxl.load_workbook(excel_path)
-        sheet = workbook.active
-    except Exception as e:
-        update_output_text(output_text, f"无法打开Excel文件：{e}\n\n")
-        exit()
-
-    if inputnum == "63":
-        editdate = sheet["B2"].value or "N/A"
-        editcarrier = sheet["B3"].value or "N/A"
-        editvessel = sheet["B4"].value or "N/A"
-        editdestination = sheet["B5"].value or "N/A"
-        editvoyage = sheet["B6"].value or "N/A"
-        presentation_port = sheet["B7"].value or "N/A"
-        port_of_unlading = sheet["B8"].value or "N/A"
-        consigned_to_port = sheet["B9"].value or "N/A"
-        goodnow = "N/A"
-        CarrierID = sheet["B10"].value or "N/A"
-        Entrytype = str(sheet["B11"].value or "N/A")
-        Lastfp = "N/A"
-    elif inputnum == "61":
-        editdate = sheet["I2"].value or "N/A"
-        editcarrier = sheet["I3"].value or "N/A"
-        editvessel = sheet["I4"].value or "N/A"
-        goodnow = sheet["I5"].value or "N/A"
-        editvoyage = sheet["I6"].value or "N/A"
-        presentation_port = sheet["I7"].value or "N/A"
-        port_of_unlading = sheet["I8"].value or "N/A"
-        consigned_to_port = sheet["I9"].value or "N/A"
-        editdestination = "N/A"
-        CarrierID = sheet["I10"].value or "N/A"
-        Entrytype = str(sheet["I12"].value or "N/A")
-        Lastfp = sheet["I11"].value or "N/A"
-
-    update_output_text(output_text, "提取的数据如下：\n")
-    update_output_text(output_text, f"日期: {editdate}\n")
-    update_output_text(output_text, f"承运人: {editcarrier}\n")
-    update_output_text(output_text, f"船舶: {editvessel}\n")
-    update_output_text(output_text, f"目的地: {editdestination}\n")
-    update_output_text(output_text, f"GNA: {goodnow}\n")
-    update_output_text(output_text, f"航次: {editvoyage}\n")
-    update_output_text(output_text, f"Presentation Port: {presentation_port}\n")
-    update_output_text(output_text, f"Port of Unlading: {port_of_unlading}\n")
-    update_output_text(output_text, f"Consigned to Port: {consigned_to_port}\n")
-    update_output_text(output_text, f"carrierid: {CarrierID}\n")
-    update_output_text(output_text, f"entrytype: {Entrytype}\n")
-    update_output_text(output_text, f"Lastfp: {Lastfp}\n\n")
-
-    df = pd.read_excel(file_path, header=None, dtype=str)
-    a_column = df.iloc[:, 0]
-    filtered_list = a_column[a_column.notna() & (a_column != 'na')].tolist()
-    update_output_text(output_text, f"所有需要操作的inbond: {filtered_list}\n")
-
-    try:
-        # 配置 ChromeOptions
-        options = webdriver.ChromeOptions()
-        chrome_binary = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
-        options.binary_location = chrome_binary
-        options.add_argument("--no-sandbox")
-        options.add_argument("--disable-dev-shm-usage")
-
-        # 检查 Chrome 可执行文件是否存在
-        if os.path.exists(chrome_binary):
-            update_output_text(output_text, f"Chrome 可执行文件存在: {chrome_binary}\n")
-        else:
-            update_output_text(output_text, f"Chrome 可执行文件不存在: {chrome_binary}\n")
-            raise FileNotFoundError(f"Chrome 可执行文件未找到: {chrome_binary}")
-
-        # 获取 ChromeDriver 路径和版本
-        try:
-            driver_path = ChromeDriverManager().install()
-            update_output_text(output_text, f"ChromeDriver 路径: {driver_path}\n")
-            # 检查 ChromeDriver 版本
-            driver_version = subprocess.check_output([driver_path, "--version"]).decode().strip()
-            update_output_text(output_text, f"ChromeDriver 版本: {driver_version}\n")
-        except Exception as e:
-            update_output_text(output_text, f"获取 ChromeDriver 路径或版本失败: {str(e)}\n")
-            raise
-
-        # 检查系统 PATH
-        system_path = os.environ.get("PATH", "")
-        update_output_text(output_text, f"系统 PATH: {system_path}\n")
-
-        # 初始化 Chrome 浏览器
-        update_output_text(output_text, "开始初始化 ChromeDriver...\n")
-        driver = webdriver.Chrome(service=Service(driver_path), options=options)
-        update_output_text(output_text, "ChromeDriver 初始化成功\n")
-
-    except webdriver.WebDriverException as wde:
-        update_output_text(output_text, f"初始化 ChromeDriver 失败 (WebDriverException): {str(wde)}\n")
-        update_output_text(output_text, f"堆栈跟踪: {traceback.format_exc()}\n")
-        raise
-    except FileNotFoundError as fnfe:
-        update_output_text(output_text, f"初始化 ChromeDriver 失败 (FileNotFoundError): {str(fnfe)}\n")
-        raise
-    except Exception as e:
-        update_output_text(output_text, f"初始化 ChromeDriver 失败 (未知错误): {str(e)}\n")
-        update_output_text(output_text, f"堆栈跟踪: {traceback.format_exc()}\n")
-        raise
-    url = "https://www.netchb.com/app/home.do"
-    driver.get(url)
-
-    WebDriverWait(driver, 20).until(
-        EC.presence_of_element_located((By.XPATH, '//*[@id="lName"]'))
-    ).send_keys(account)
-
-    WebDriverWait(driver, 20).until(
-        EC.presence_of_element_located((By.XPATH, '//*[@id="pass"]'))
-    ).send_keys(password)
-
-    xpath = '//*[@id="loginForm"]/div[2]/input'
-    login_button = driver.find_element(By.XPATH, xpath)
-    login_button.click()
-
-    values_to_update = {
-        '//*[@id="pDate"]': editdate,
-        '//*[@id="dImp"]': editdate,
-        '//*[@id="ed"]': editdate,
-        '//*[@id="ad"]': editdate,
-        '//*[@id="impC"]': editcarrier,
-        '//*[@id="vn"]': editvessel,
-        '//*[@id="forDest"]': editdestination,
-        '//*[@id="vNo"]': editvoyage,
-        '//*[@id="gna"]': goodnow,
-        '//*[@id="presPort"]': presentation_port,
-        '//*[@id="pu"]': port_of_unlading,
-        '//*[@id="usp"]': consigned_to_port,
-        '//*[@id="ci"]': CarrierID,
-        '//*[@id="lfp"]': Lastfp
-    }
-    entrytype_xpath = '//*[@id="et"]'
-    url = "https://www.netchb.com/app/inbond/inbondMenu.do?itNo=054302382"
-    driver.get(url)
-    for item in filtered_list:
-        if windowname != "task":
-            update_output_text(output_text, "窗口已关闭，程序终止。\n")
-            sys.exit()
-        target_url = f"https://www.netchb.com/app/inbond/inbondMenu.do?itNo={item}"
-        driver.get(target_url)
-
-        try:
-            element_xpath = '/html/body/table/tbody/tr[2]/td[1]/table[1]/tbody/tr[6]/td[2]/a'
-            element = WebDriverWait(driver, 50).until(
-                EC.element_to_be_clickable((By.XPATH, element_xpath))
-            )
-            element.click()
-            time.sleep(1)
-
-            if Entrytype != "N/A":
-                try:
-                    entrytype_element = WebDriverWait(driver, 20).until(
-                        EC.element_to_be_clickable((By.XPATH, entrytype_xpath))
-                    )
-                    select = Select(entrytype_element)
-                    select.select_by_value(Entrytype)
-                    time.sleep(1)
-                except Exception as e:
-                    update_output_text(output_text, f"Error setting Entrytype at {entrytype_xpath}: {e}\n")
-            else:
-                update_output_text(output_text, f"Skipped setting Entrytype because value is 'N/A'.\n")
-
-            for xpath, value in values_to_update.items():
-                if value != "N/A":
-                    try:
-                        field_element = WebDriverWait(driver, 20).until(
-                            EC.element_to_be_clickable((By.XPATH, xpath))
-                        )
-                        field_element.clear()
-                        field_element.send_keys(value)
-                    except Exception as e:
-                        update_output_text(output_text, f"Error updating field at {xpath}: {e}\n")
-                else:
-                    update_output_text(output_text, f"Skipped updating field at {xpath} because value is 'N/A'.\n")
-
-            time.sleep(2)
-
-            save_xpath = '//*[@id="inbondHeaderForm"]/input[4]'
-            saveelement = WebDriverWait(driver, 50).until(
-                EC.element_to_be_clickable((By.XPATH, save_xpath))
-            )
-            saveelement.click()
-
-        except Exception as e:
-            update_output_text(output_text, f"Error occurred for {item}: {e}\n")
-
-        target_url2 = f"https://www.netchb.com/app/home.do"
-        driver.get(target_url2)
-        time.sleep(4)
-
-    input("Press Enter to close the browser...")
     driver.quit()
 def netchb_token(account, password, output_text):
     expiration_date = expiration_date1
@@ -7560,6 +6864,734 @@ def netchb_entry_update(account, password, output_text):
     update_output_text(output_text,"处理完毕，已把失败的标记写回原Excel第14列")
 
 
+
+
+def statuschange_program(account, password, output_text):
+    expiration_date = expiration_date1
+    now = datetime.now()
+    func_name = inspect.currentframe().f_code.co_name  # 自动获取当前函数名
+
+    if expiration_date and now > expiration_date:
+        if not is_user_allowed(func_name, account):
+            update_output_text(output_text, "程序已过期，请联系Larry获取更新版本。\n\n")
+            exit()
+
+    # 获取用户主目录
+    user_home = os.path.expanduser("~")
+
+    # 检测可能的桌面路径
+    possible_paths = [
+        os.path.join(user_home, "Desktop"),
+        os.path.join(user_home, "桌面"),
+        os.path.join(user_home, "OneDrive", "Desktop"),
+        os.path.join(user_home, "OneDrive", "桌面")
+    ]
+
+    # 查找存在的桌面路径
+    desktop_path = next((path for path in possible_paths if os.path.exists(path)), None)
+
+    if desktop_path:
+        file_path = os.path.join(desktop_path, "extract.xlsx")
+        if os.path.exists(file_path):
+            update_output_text(output_text, f"找到文件：{file_path}\n")
+        else:
+            # 创建空的 Excel 文件
+            wb = Workbook()
+            wb.save(file_path)
+            update_output_text(output_text, f"未找到文件，已创建新文件：{file_path}\n")
+            sys.exit()  # 程序立即停止
+    else:
+        update_output_text(output_text, "未找到有效的桌面路径\n")
+        sys.exit()  # 程序立即停止
+
+    # 读取 Excel 文件
+    df = pd.read_excel(file_path, header=None, dtype=str)  # 如果没有列名，使用 header=None
+
+    # 通过 iloc 访问第一列（假设是 A 列）
+    a_column = df.iloc[:, 0]  # 选择第一列
+
+    # 过滤掉 'na' 和 NaN 值
+    filtered_list = a_column[a_column.notna() & (a_column != 'na')].tolist()
+    update_output_text(output_text, f"所有需要处理的inbond: {filtered_list}\n")
+
+    try:
+        # 配置 ChromeOptions
+        options = webdriver.ChromeOptions()
+        chrome_binary = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
+        options.binary_location = chrome_binary
+        options.add_argument("--no-sandbox")
+        options.add_argument("--disable-dev-shm-usage")
+
+        # 检查 Chrome 可执行文件是否存在
+        if os.path.exists(chrome_binary):
+            update_output_text(output_text, f"Chrome 可执行文件存在: {chrome_binary}\n")
+        else:
+            update_output_text(output_text, f"Chrome 可执行文件不存在: {chrome_binary}\n")
+            raise FileNotFoundError(f"Chrome 可执行文件未找到: {chrome_binary}")
+
+        # 获取 ChromeDriver 路径和版本
+        try:
+            driver_path = ChromeDriverManager().install()
+            update_output_text(output_text, f"ChromeDriver 路径: {driver_path}\n")
+            # 检查 ChromeDriver 版本
+            driver_version = subprocess.check_output([driver_path, "--version"]).decode().strip()
+            update_output_text(output_text, f"ChromeDriver 版本: {driver_version}\n")
+        except Exception as e:
+            update_output_text(output_text, f"获取 ChromeDriver 路径或版本失败: {str(e)}\n")
+            raise
+
+        # 检查系统 PATH
+        system_path = os.environ.get("PATH", "")
+        update_output_text(output_text, f"系统 PATH: {system_path}\n")
+
+        # 初始化 Chrome 浏览器
+        update_output_text(output_text, "开始初始化 ChromeDriver...\n")
+        driver = webdriver.Chrome(service=Service(driver_path), options=options)
+        update_output_text(output_text, "ChromeDriver 初始化成功\n")
+
+    except webdriver.WebDriverException as wde:
+        update_output_text(output_text, f"初始化 ChromeDriver 失败 (WebDriverException): {str(wde)}\n")
+        update_output_text(output_text, f"堆栈跟踪: {traceback.format_exc()}\n")
+        raise
+    except FileNotFoundError as fnfe:
+        update_output_text(output_text, f"初始化 ChromeDriver 失败 (FileNotFoundError): {str(fnfe)}\n")
+        raise
+    except Exception as e:
+        update_output_text(output_text, f"初始化 ChromeDriver 失败 (未知错误): {str(e)}\n")
+        update_output_text(output_text, f"堆栈跟踪: {traceback.format_exc()}\n")
+        raise
+    url = "https://www.netchb.com/app/home.do"
+    driver.get(url)
+
+    WebDriverWait(driver, 20).until(
+        EC.presence_of_element_located((By.XPATH, '//*[@id="lName"]'))
+    ).send_keys(account)
+
+    # 等待 Password 输入框出现并输入密码
+    WebDriverWait(driver, 20).until(
+        EC.presence_of_element_located((By.XPATH, '//*[@id="pass"]'))
+    ).send_keys(password)
+
+    xpath = '//*[@id="loginForm"]/div[2]/input'
+    login_button = driver.find_element(By.XPATH, xpath)
+    login_button.click()
+    target_url = f"https://www.netchb.com/app/inbond/inbondMenu.do?itNo={'054294590'}"
+    # 打开页面
+    driver.get(target_url)
+    # 遍历 filtered_list 中的每个项目
+    for item in filtered_list:
+
+        if windowname != "task":
+            update_output_text(output_text, "窗口已关闭，程序终止。\n")
+            sys.exit()  # 窗口已关闭，退出程序
+
+        target_url = f"https://www.netchb.com/app/inbond/inbondMenu.do?itNo={item}"
+        # 打开页面
+        driver.get(target_url)
+
+        current_title = driver.title
+        update_output_text(output_text, f"正在处理 {item}")
+
+        try:
+            # 查找特定的元素，增加最长等待时间
+            element_xpath = '/html/body/table/tbody/tr[2]/td[1]/table[1]/tbody/tr[10]/td[2]/a'
+
+            # 等待最多 20 秒，直到元素可点击
+            element = WebDriverWait(driver, 50).until(
+                EC.element_to_be_clickable((By.XPATH, element_xpath))
+            )
+
+            # 如果元素存在并且可点击，点击它
+            element.click()
+
+            # 等待新页面加载完成
+            select_xpath = '//*[@id="changeInbondStatusTo"]'
+            select_element = WebDriverWait(driver, 20).until(
+                EC.presence_of_element_located((By.XPATH, select_xpath))
+            )
+
+            # 使用 Select 类选择 "Accepted" 选项
+            select = Select(select_element)
+            select.select_by_value("ACCEPTED")  # 使用 value 属性选择 "Accepted"
+
+            update_output_text(output_text, f"Successfully selected 'Accepted' for {item}.")
+
+            button_xpath = '//*[@id="changeInbondStatusButton"]'
+            target_button = WebDriverWait(driver, 20).until(
+                EC.element_to_be_clickable((By.XPATH, button_xpath))
+            )
+            target_button.click()
+            update_output_text(output_text, f"Successfully clicked the target button for {item}.")
+
+        except Exception as e:
+            # 如果元素未找到或不可点击，打印消息
+            update_output_text(output_text, f"没有找到元素或发生错误 {item}！错误: {e}")
+
+    # 等待用户输入后关闭浏览器
+    input("按 Enter 键关闭浏览器...")
+    driver.quit()
+
+
+def del_program(account, password, output_text):
+    expiration_date = expiration_date1
+    now = datetime.now()
+    func_name = inspect.currentframe().f_code.co_name  # 自动获取当前函数名
+
+    if expiration_date and now > expiration_date:
+        if not is_user_allowed(func_name, account):
+            update_output_text(output_text, "程序已过期，请联系Larry获取更新版本。\n\n")
+            exit()
+
+    # 获取用户主目录
+    user_home = os.path.expanduser("~")
+
+    # 检测可能的桌面路径
+    possible_paths = [
+        os.path.join(user_home, "Desktop"),
+        os.path.join(user_home, "桌面"),
+        os.path.join(user_home, "OneDrive", "Desktop"),
+        os.path.join(user_home, "OneDrive", "桌面")
+    ]
+
+    # 查找存在的桌面路径
+    desktop_path = next((path for path in possible_paths if os.path.exists(path)), None)
+
+    if desktop_path:
+        file_path = os.path.join(desktop_path, "extract.xlsx")
+        if os.path.exists(file_path):
+            update_output_text(output_text, f"找到文件：{file_path}\n")
+        else:
+            # 创建空的 Excel 文件
+            wb = Workbook()
+            wb.save(file_path)
+            update_output_text(output_text, f"未找到文件，已创建新文件：{file_path}\n")
+            sys.exit()  # 程序立即停止
+    else:
+        update_output_text(output_text, "未找到有效的桌面路径\n")
+        sys.exit()  # 程序立即停止
+
+    # 读取 Excel 文件
+    df = pd.read_excel(file_path, header=None, dtype=str)  # 如果没有列名，使用 header=None
+
+    # 通过 iloc 访问第一列（假设是 A 列）
+    a_column = df.iloc[:, 0]  # 选择第一列
+
+    # 过滤掉 'na' 和 NaN 值
+    filtered_list = a_column[a_column.notna() & (a_column != 'na')].tolist()
+    update_output_text(output_text, f"所有需要操作的inbond: {filtered_list}\n")
+
+    try:
+        # 配置 ChromeOptions
+        options = webdriver.ChromeOptions()
+        chrome_binary = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
+        options.binary_location = chrome_binary
+        options.add_argument("--no-sandbox")
+        options.add_argument("--disable-dev-shm-usage")
+
+        # 检查 Chrome 可执行文件是否存在
+        if os.path.exists(chrome_binary):
+            update_output_text(output_text, f"Chrome 可执行文件存在: {chrome_binary}\n")
+        else:
+            update_output_text(output_text, f"Chrome 可执行文件不存在: {chrome_binary}\n")
+            raise FileNotFoundError(f"Chrome 可执行文件未找到: {chrome_binary}")
+
+        # 获取 ChromeDriver 路径和版本
+        try:
+            driver_path = ChromeDriverManager().install()
+            update_output_text(output_text, f"ChromeDriver 路径: {driver_path}\n")
+            # 检查 ChromeDriver 版本
+            driver_version = subprocess.check_output([driver_path, "--version"]).decode().strip()
+            update_output_text(output_text, f"ChromeDriver 版本: {driver_version}\n")
+        except Exception as e:
+            update_output_text(output_text, f"获取 ChromeDriver 路径或版本失败: {str(e)}\n")
+            raise
+
+        # 检查系统 PATH
+        system_path = os.environ.get("PATH", "")
+        update_output_text(output_text, f"系统 PATH: {system_path}\n")
+
+        # 初始化 Chrome 浏览器
+        update_output_text(output_text, "开始初始化 ChromeDriver...\n")
+        driver = webdriver.Chrome(service=Service(driver_path), options=options)
+        update_output_text(output_text, "ChromeDriver 初始化成功\n")
+
+    except webdriver.WebDriverException as wde:
+        update_output_text(output_text, f"初始化 ChromeDriver 失败 (WebDriverException): {str(wde)}\n")
+        update_output_text(output_text, f"堆栈跟踪: {traceback.format_exc()}\n")
+        raise
+    except FileNotFoundError as fnfe:
+        update_output_text(output_text, f"初始化 ChromeDriver 失败 (FileNotFoundError): {str(fnfe)}\n")
+        raise
+    except Exception as e:
+        update_output_text(output_text, f"初始化 ChromeDriver 失败 (未知错误): {str(e)}\n")
+        update_output_text(output_text, f"堆栈跟踪: {traceback.format_exc()}\n")
+        raise
+    url = "https://www.netchb.com/app/home.do"
+    driver.get(url)
+
+    WebDriverWait(driver, 20).until(
+        EC.presence_of_element_located((By.XPATH, '//*[@id="lName"]'))
+    ).send_keys(account)
+
+    # 等待 Password 输入框出现并输入密码
+    WebDriverWait(driver, 20).until(
+        EC.presence_of_element_located((By.XPATH, '//*[@id="pass"]'))
+    ).send_keys(password)
+
+    xpath = '//*[@id="loginForm"]/div[2]/input'
+    login_button = driver.find_element(By.XPATH, xpath)
+    login_button.click()
+    target_url = f"https://www.netchb.com/app/inbond/inbondMenu.do?itNo={'054294590'}"
+    # 打开页面
+    driver.get(target_url)
+    # 遍历 filtered_list 中的每个项目
+
+    for item in filtered_list:
+        if windowname != "task":
+            update_output_text(output_text, "窗口已关闭，程序终止。\n")
+            sys.exit()  # 窗口已关闭，退出程序
+        target_url = f"https://www.netchb.com/app/inbond/inbondMenu.do?itNo={item}"
+        # 打开页面
+        driver.get(target_url)
+
+        current_title = driver.title
+        update_output_text(output_text, f"正在处理{item}\n")
+
+        try:
+            # 查找特定的元素，增加最长等待时间
+            element_xpath = '/html/body/table/tbody/tr[2]/td[1]/table[1]/tbody/tr[8]/td[2]/a'
+
+            # 等待最多 20 秒，直到元素可点击
+            element = WebDriverWait(driver, 50).until(
+                EC.element_to_be_clickable((By.XPATH, element_xpath))
+            )
+
+            # 如果元素存在并且可点击，点击它
+            element.click()
+            try:
+                # 查找特定的元素，增加最长等待时间
+                element_xpath = '/html/body/table/tbody/tr[2]/td[2]/table[3]/tbody/tr[2]/td/input'
+
+                # 等待最多 20 秒，直到元素可点击
+                element = WebDriverWait(driver, 50).until(
+                    EC.element_to_be_clickable((By.XPATH, element_xpath))
+                )
+
+                # 如果元素存在并且可点击，点击它
+                element.click()
+
+
+            except Exception as e:
+                update_output_text(output_text, f"点击确认按钮时出错：{e}\n")
+
+                # 如果元素未找到或不可点击，打印消息
+
+        except Exception as e:
+            # 如果元素未找到或不可点击，打印消息
+            update_output_text(output_text, f"没有找到元素 {item} 的按钮！错误: {e}\n")
+
+    # 等待用户输入后关闭浏览器
+    input("按 Enter 键关闭浏览器...")
+    driver.quit()
+
+
+def delallinbond_program(account, password, output_text):
+    expiration_date = expiration_date1
+    now = datetime.now()
+    func_name = inspect.currentframe().f_code.co_name  # 自动获取当前函数名
+
+    if expiration_date and now > expiration_date:
+        if not is_user_allowed(func_name, account):
+            update_output_text(output_text, "程序已过期，请联系Larry获取更新版本。\n\n")
+            exit()
+
+    # 获取用户主目录
+    user_home = os.path.expanduser("~")
+
+    # 检测可能的桌面路径
+    possible_paths = [
+        os.path.join(user_home, "Desktop"),
+        os.path.join(user_home, "桌面"),
+        os.path.join(user_home, "OneDrive", "Desktop"),
+        os.path.join(user_home, "OneDrive", "桌面")
+    ]
+
+    # 查找存在的桌面路径
+    desktop_path = next((path for path in possible_paths if os.path.exists(path)), None)
+
+    if desktop_path:
+        file_path = os.path.join(desktop_path, "extract.xlsx")
+        if os.path.exists(file_path):
+            update_output_text(output_text, f"找到文件：{file_path}\n\n")
+        else:
+            # 创建空的 Excel 文件
+            wb = Workbook()
+            wb.save(file_path)
+            update_output_text(output_text, f"未找到文件，已创建新文件：{file_path}\n\n")
+            sys.exit()  # 程序立即停止
+    else:
+        update_output_text(output_text, "未找到有效的桌面路径\n")
+        sys.exit()  # 程序立即停止
+
+    # 读取 Excel 文件
+    df = pd.read_excel(file_path, header=None, dtype=str)  # 如果没有列名，使用 header=None
+
+    # 通过 iloc 访问第一列（假设是 A 列）
+    a_column = df.iloc[:, 0]  # 选择第一列
+
+    # 过滤掉 'na' 和 NaN 值
+    filtered_list = a_column[a_column.notna() & (a_column != 'na')].tolist()
+    update_output_text(output_text, f"所有需要操作的inbond: {filtered_list}\n")
+
+    try:
+        # 配置 ChromeOptions
+        options = webdriver.ChromeOptions()
+        chrome_binary = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
+        options.binary_location = chrome_binary
+        options.add_argument("--no-sandbox")
+        options.add_argument("--disable-dev-shm-usage")
+
+        # 检查 Chrome 可执行文件是否存在
+        if os.path.exists(chrome_binary):
+            update_output_text(output_text, f"Chrome 可执行文件存在: {chrome_binary}\n")
+        else:
+            update_output_text(output_text, f"Chrome 可执行文件不存在: {chrome_binary}\n")
+            raise FileNotFoundError(f"Chrome 可执行文件未找到: {chrome_binary}")
+
+        # 获取 ChromeDriver 路径和版本
+        try:
+            driver_path = ChromeDriverManager().install()
+            update_output_text(output_text, f"ChromeDriver 路径: {driver_path}\n")
+            # 检查 ChromeDriver 版本
+            driver_version = subprocess.check_output([driver_path, "--version"]).decode().strip()
+            update_output_text(output_text, f"ChromeDriver 版本: {driver_version}\n")
+        except Exception as e:
+            update_output_text(output_text, f"获取 ChromeDriver 路径或版本失败: {str(e)}\n")
+            raise
+
+        # 检查系统 PATH
+        system_path = os.environ.get("PATH", "")
+        update_output_text(output_text, f"系统 PATH: {system_path}\n")
+
+        # 初始化 Chrome 浏览器
+        update_output_text(output_text, "开始初始化 ChromeDriver...\n")
+        driver = webdriver.Chrome(service=Service(driver_path), options=options)
+        update_output_text(output_text, "ChromeDriver 初始化成功\n")
+
+    except webdriver.WebDriverException as wde:
+        update_output_text(output_text, f"初始化 ChromeDriver 失败 (WebDriverException): {str(wde)}\n")
+        update_output_text(output_text, f"堆栈跟踪: {traceback.format_exc()}\n")
+        raise
+    except FileNotFoundError as fnfe:
+        update_output_text(output_text, f"初始化 ChromeDriver 失败 (FileNotFoundError): {str(fnfe)}\n")
+        raise
+    except Exception as e:
+        update_output_text(output_text, f"初始化 ChromeDriver 失败 (未知错误): {str(e)}\n")
+        update_output_text(output_text, f"堆栈跟踪: {traceback.format_exc()}\n")
+        raise
+    url = "https://www.netchb.com/app/home.do"
+    driver.get(url)
+
+    WebDriverWait(driver, 20).until(
+        EC.presence_of_element_located((By.XPATH, '//*[@id="lName"]'))
+    ).send_keys(account)
+
+    # 等待 Password 输入框出现并输入密码
+    WebDriverWait(driver, 20).until(
+        EC.presence_of_element_located((By.XPATH, '//*[@id="pass"]'))
+    ).send_keys(password)
+
+    xpath = '//*[@id="loginForm"]/div[2]/input'
+    login_button = driver.find_element(By.XPATH, xpath)
+    login_button.click()
+    target_url = f"https://www.netchb.com/app/inbond/inbondMenu.do?itNo={'054294590'}"
+    # 打开页面
+    driver.get(target_url)
+    # 遍历 filtered_list 中的每个项目
+
+    for item in filtered_list:
+        if windowname != "task":
+            update_output_text(output_text, "窗口已关闭，程序终止。\n")
+            sys.exit()  # 窗口已关闭，退出程序
+        target_url = f"https://www.netchb.com/app/inbond/inbondMenu.do?itNo={item}"
+        # 打开页面
+        driver.get(target_url)
+
+        try:
+            # 等待页面加载
+            wait = WebDriverWait(driver, 10)
+            table_body = wait.until(
+                EC.presence_of_element_located((By.XPATH, '//*[@id="manifestBody"]'))
+            )
+
+            while True:
+                try:
+                    # 查找删除按钮并点击
+                    delete_button = driver.find_element(By.XPATH,
+                                                        '/html/body/table/tbody/tr[2]/td[2]/table[3]/tbody/tr/td[1]/table[2]/tbody/tr[4]/td[5]/input')
+                    delete_button.click()
+                    time.sleep(0.5)
+
+                    # 处理弹窗
+                    try:
+                        alert = driver.switch_to.alert  # 正确方式，直接访问 alert
+                        alert.accept()  # 点击确认按钮
+                        time.sleep(0.5)
+                    except NoAlertPresentException:
+                        update_output_text(output_text, f"没有弹窗，跳过弹窗处理。")
+
+                except NoSuchElementException:
+                    update_output_text(output_text, f"元素 {filter} 的删除按钮不存在，退出循环。")
+
+                    break
+
+        except Exception as e:
+            update_output_text(output_text, f"错误发生在 {filter}: {e}")
+
+
+def headeredit_program(account, password, output_text, inputnum):
+    expiration_date = expiration_date1
+    now = datetime.now()
+    func_name = inspect.currentframe().f_code.co_name  # 自动获取当前函数名
+
+    if expiration_date and now > expiration_date:
+        if not is_user_allowed(func_name, account):
+            update_output_text(output_text, "程序已过期，请联系Larry获取更新版本。\n\n")
+            exit()
+
+    user_home = os.path.expanduser("~")
+    possible_paths = [
+        os.path.join(user_home, "Desktop"),
+        os.path.join(user_home, "桌面"),
+        os.path.join(user_home, "OneDrive", "Desktop"),
+        os.path.join(user_home, "OneDrive", "桌面")
+    ]
+
+    desktop_path = next((path for path in possible_paths if os.path.exists(path)), None)
+
+    if desktop_path:
+        file_path = os.path.join(desktop_path, "extract.xlsx")
+        if os.path.exists(file_path):
+            update_output_text(output_text, f"找到文件：{file_path}\n\n")
+        else:
+            wb = Workbook()
+            wb.save(file_path)
+            update_output_text(output_text, f"未找到文件，已创建新文件：{file_path}\n\n")
+            sys.exit()
+    else:
+        update_output_text(output_text, "未找到有效的桌面路径\n\n")
+        sys.exit()
+
+    if desktop_path:
+        excel_path = os.path.join(desktop_path, "headeredit.xlsx")
+        if os.path.exists(excel_path):
+            update_output_text(output_text, f"找到文件：{excel_path}\n\n")
+        else:
+            wb = Workbook()
+            wb.save(excel_path)
+            update_output_text(output_text, f"未找到文件，已创建新文件：{excel_path}\n\n")
+            sys.exit()
+    else:
+        update_output_text(output_text, "未找到有效的桌面路径\n\n")
+        sys.exit()
+
+    if inputnum not in ["61", "63"]:
+        update_output_text(output_text, "无效输入，请输入61或63！\n\n")
+        exit()
+
+    try:
+        workbook = openpyxl.load_workbook(excel_path)
+        sheet = workbook.active
+    except Exception as e:
+        update_output_text(output_text, f"无法打开Excel文件：{e}\n\n")
+        exit()
+
+    if inputnum == "63":
+        editdate = sheet["B2"].value or "N/A"
+        editcarrier = sheet["B3"].value or "N/A"
+        editvessel = sheet["B4"].value or "N/A"
+        editdestination = sheet["B5"].value or "N/A"
+        editvoyage = sheet["B6"].value or "N/A"
+        presentation_port = sheet["B7"].value or "N/A"
+        port_of_unlading = sheet["B8"].value or "N/A"
+        consigned_to_port = sheet["B9"].value or "N/A"
+        goodnow = "N/A"
+        CarrierID = sheet["B10"].value or "N/A"
+        Entrytype = str(sheet["B11"].value or "N/A")
+        Lastfp = "N/A"
+    elif inputnum == "61":
+        editdate = sheet["I2"].value or "N/A"
+        editcarrier = sheet["I3"].value or "N/A"
+        editvessel = sheet["I4"].value or "N/A"
+        goodnow = sheet["I5"].value or "N/A"
+        editvoyage = sheet["I6"].value or "N/A"
+        presentation_port = sheet["I7"].value or "N/A"
+        port_of_unlading = sheet["I8"].value or "N/A"
+        consigned_to_port = sheet["I9"].value or "N/A"
+        editdestination = "N/A"
+        CarrierID = sheet["I10"].value or "N/A"
+        Entrytype = str(sheet["I12"].value or "N/A")
+        Lastfp = sheet["I11"].value or "N/A"
+
+    update_output_text(output_text, "提取的数据如下：\n")
+    update_output_text(output_text, f"日期: {editdate}\n")
+    update_output_text(output_text, f"承运人: {editcarrier}\n")
+    update_output_text(output_text, f"船舶: {editvessel}\n")
+    update_output_text(output_text, f"目的地: {editdestination}\n")
+    update_output_text(output_text, f"GNA: {goodnow}\n")
+    update_output_text(output_text, f"航次: {editvoyage}\n")
+    update_output_text(output_text, f"Presentation Port: {presentation_port}\n")
+    update_output_text(output_text, f"Port of Unlading: {port_of_unlading}\n")
+    update_output_text(output_text, f"Consigned to Port: {consigned_to_port}\n")
+    update_output_text(output_text, f"carrierid: {CarrierID}\n")
+    update_output_text(output_text, f"entrytype: {Entrytype}\n")
+    update_output_text(output_text, f"Lastfp: {Lastfp}\n\n")
+
+    df = pd.read_excel(file_path, header=None, dtype=str)
+    a_column = df.iloc[:, 0]
+    filtered_list = a_column[a_column.notna() & (a_column != 'na')].tolist()
+    update_output_text(output_text, f"所有需要操作的inbond: {filtered_list}\n")
+
+    try:
+        # 配置 ChromeOptions
+        options = webdriver.ChromeOptions()
+        chrome_binary = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
+        options.binary_location = chrome_binary
+        options.add_argument("--no-sandbox")
+        options.add_argument("--disable-dev-shm-usage")
+
+        # 检查 Chrome 可执行文件是否存在
+        if os.path.exists(chrome_binary):
+            update_output_text(output_text, f"Chrome 可执行文件存在: {chrome_binary}\n")
+        else:
+            update_output_text(output_text, f"Chrome 可执行文件不存在: {chrome_binary}\n")
+            raise FileNotFoundError(f"Chrome 可执行文件未找到: {chrome_binary}")
+
+        # 获取 ChromeDriver 路径和版本
+        try:
+            driver_path = ChromeDriverManager().install()
+            update_output_text(output_text, f"ChromeDriver 路径: {driver_path}\n")
+            # 检查 ChromeDriver 版本
+            driver_version = subprocess.check_output([driver_path, "--version"]).decode().strip()
+            update_output_text(output_text, f"ChromeDriver 版本: {driver_version}\n")
+        except Exception as e:
+            update_output_text(output_text, f"获取 ChromeDriver 路径或版本失败: {str(e)}\n")
+            raise
+
+        # 检查系统 PATH
+        system_path = os.environ.get("PATH", "")
+        update_output_text(output_text, f"系统 PATH: {system_path}\n")
+
+        # 初始化 Chrome 浏览器
+        update_output_text(output_text, "开始初始化 ChromeDriver...\n")
+        driver = webdriver.Chrome(service=Service(driver_path), options=options)
+        update_output_text(output_text, "ChromeDriver 初始化成功\n")
+
+    except webdriver.WebDriverException as wde:
+        update_output_text(output_text, f"初始化 ChromeDriver 失败 (WebDriverException): {str(wde)}\n")
+        update_output_text(output_text, f"堆栈跟踪: {traceback.format_exc()}\n")
+        raise
+    except FileNotFoundError as fnfe:
+        update_output_text(output_text, f"初始化 ChromeDriver 失败 (FileNotFoundError): {str(fnfe)}\n")
+        raise
+    except Exception as e:
+        update_output_text(output_text, f"初始化 ChromeDriver 失败 (未知错误): {str(e)}\n")
+        update_output_text(output_text, f"堆栈跟踪: {traceback.format_exc()}\n")
+        raise
+    url = "https://www.netchb.com/app/home.do"
+    driver.get(url)
+
+    WebDriverWait(driver, 20).until(
+        EC.presence_of_element_located((By.XPATH, '//*[@id="lName"]'))
+    ).send_keys(account)
+
+    WebDriverWait(driver, 20).until(
+        EC.presence_of_element_located((By.XPATH, '//*[@id="pass"]'))
+    ).send_keys(password)
+
+    xpath = '//*[@id="loginForm"]/div[2]/input'
+    login_button = driver.find_element(By.XPATH, xpath)
+    login_button.click()
+
+    values_to_update = {
+        '//*[@id="pDate"]': editdate,
+        '//*[@id="dImp"]': editdate,
+        '//*[@id="ed"]': editdate,
+        '//*[@id="ad"]': editdate,
+        '//*[@id="impC"]': editcarrier,
+        '//*[@id="vn"]': editvessel,
+        '//*[@id="forDest"]': editdestination,
+        '//*[@id="vNo"]': editvoyage,
+        '//*[@id="gna"]': goodnow,
+        '//*[@id="presPort"]': presentation_port,
+        '//*[@id="pu"]': port_of_unlading,
+        '//*[@id="usp"]': consigned_to_port,
+        '//*[@id="ci"]': CarrierID,
+        '//*[@id="lfp"]': Lastfp
+    }
+    entrytype_xpath = '//*[@id="et"]'
+    url = "https://www.netchb.com/app/inbond/inbondMenu.do?itNo=054302382"
+    driver.get(url)
+    for item in filtered_list:
+        if windowname != "task":
+            update_output_text(output_text, "窗口已关闭，程序终止。\n")
+            sys.exit()
+        target_url = f"https://www.netchb.com/app/inbond/inbondMenu.do?itNo={item}"
+        driver.get(target_url)
+
+        try:
+            element_xpath = '/html/body/table/tbody/tr[2]/td[1]/table[1]/tbody/tr[6]/td[2]/a'
+            element = WebDriverWait(driver, 50).until(
+                EC.element_to_be_clickable((By.XPATH, element_xpath))
+            )
+            element.click()
+            time.sleep(1)
+
+            if Entrytype != "N/A":
+                try:
+                    entrytype_element = WebDriverWait(driver, 20).until(
+                        EC.element_to_be_clickable((By.XPATH, entrytype_xpath))
+                    )
+                    select = Select(entrytype_element)
+                    select.select_by_value(Entrytype)
+                    time.sleep(1)
+                except Exception as e:
+                    update_output_text(output_text, f"Error setting Entrytype at {entrytype_xpath}: {e}\n")
+            else:
+                update_output_text(output_text, f"Skipped setting Entrytype because value is 'N/A'.\n")
+
+            for xpath, value in values_to_update.items():
+                if value != "N/A":
+                    try:
+                        field_element = WebDriverWait(driver, 20).until(
+                            EC.element_to_be_clickable((By.XPATH, xpath))
+                        )
+                        field_element.clear()
+                        field_element.send_keys(value)
+                    except Exception as e:
+                        update_output_text(output_text, f"Error updating field at {xpath}: {e}\n")
+                else:
+                    update_output_text(output_text, f"Skipped updating field at {xpath} because value is 'N/A'.\n")
+
+            time.sleep(2)
+
+            save_xpath = '//*[@id="inbondHeaderForm"]/input[4]'
+            saveelement = WebDriverWait(driver, 50).until(
+                EC.element_to_be_clickable((By.XPATH, save_xpath))
+            )
+            saveelement.click()
+
+        except Exception as e:
+            update_output_text(output_text, f"Error occurred for {item}: {e}\n")
+
+        target_url2 = f"https://www.netchb.com/app/home.do"
+        driver.get(target_url2)
+        time.sleep(4)
+
+    input("Press Enter to close the browser...")
+    driver.quit()
+
+
 def Steel_Aluminum_dutyprogram(account, password, output_text):
     from seleniumwire import webdriver
     expiration_date = expiration_date1
@@ -8146,7 +8178,7 @@ def Steel_Aluminum_dutyprogram(account, password, output_text):
                     "点击某个按钮")
             wait_for_block_to_disappear(driver, timeout=80, check_interval=1)
             time.sleep(1)
-        return all_data, txt_file_path, filtered_listc
+        return all_data, txt_file_path,filtered_listc
 
     def decode_and_save(encoded_data: str, save_path: str):
         """
@@ -8392,7 +8424,7 @@ def Steel_Aluminum_dutyprogram(account, password, output_text):
             "reference_number": reference_number,
         }
 
-    all_data, txt_file_path, filtered_listc = get_code(account, password)
+    all_data, txt_file_path,filtered_listc = get_code(account, password)
     print(all_data)
     for (entry_number, data), fixtime in zip(all_data.items(), filtered_listc):
         encoded_data = extract_encoded_data(entry_number, data)
@@ -8425,7 +8457,6 @@ def Steel_Aluminum_dutyprogram(account, password, output_text):
 
         print(f"{entry_number} 处理完成\n")
     update_output_text(output_text, f"------------全部处理完成-----------------------------------")
-
 
 import customtkinter as ctk
 from tkinter import messagebox
@@ -8482,16 +8513,15 @@ def start_program(account, password, output_text, task_type, mode=None):
     elif task_type == "Nikki template":
         Nikki_template(account, password, output_text)
     elif task_type == "白宫总统办公室联系方式":
-        wechat(account, password, output_text)
+        wechat(account, password, output_text)   
     elif task_type == "netchb larry服务器链接（4小时一次）":
         netchb_token(account, password, output_text)
     elif task_type == "query目标单号":
         netchb_query(account, password, output_text)
     elif task_type == "netchb上传":
         netchb_entry_update(account, password, output_text)
-    # 登录界面
 
-
+# 登录界面
 def login_window():
     global windowname
     windowname = 'login'
@@ -8580,9 +8610,6 @@ def show_main_window(account, password):
                   ("netchb larry服务器链接（4小时一次）", lambda: switch_to_task("netchb larry服务器链接（4小时一次）")),
                   ("query目标单号", lambda: switch_to_task("query目标单号")),
                   ("netchb上传", lambda: switch_to_task("netchb上传")),
-
-
-
               ] + [("未解锁功能", None)] * 8  # 增加点按钮以便显示滚动效果
 
     def create_button(parent, text, command=None):
