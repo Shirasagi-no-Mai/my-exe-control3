@@ -8781,7 +8781,7 @@ def go_back_to_main(current_frame, account, password):
 
 # 初始化主窗口
 root = ctk.CTk()
-root.title("真是一对苦命鸳鸯")
+root.title("真是一对苦命鸳鸯阿")
 root.geometry("600x420")
 root.configure(fg_color="#1e1e1e")
 
