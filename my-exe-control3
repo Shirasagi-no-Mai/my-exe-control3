@@ -6832,7 +6832,7 @@ def netchb_entry_update(account, password, output_text):
         select.select_by_value("consignee")
         save_button = driver.find_element(By.XPATH,
                                           '//*[@id="entF"]/div[11]/input[1]')
-        time.sleep(10)
+        time.sleep(3)
         save_button.click()
 
         driver.get(f'https://www.netchb.com/app/entry/transmit/finalizeEntry.do?filerCode=NXU&entryNo={prefixed_no}')
