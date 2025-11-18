@@ -110,9 +110,8 @@ print(json.dumps(permissions, indent=2, ensure_ascii=False))
 
 
 # *************************预设*****************************************************************************************
-
-# 更新输出文本框
 windowname = ""
+# 更新输出文本框
 from selenium.common.exceptions import UnexpectedAlertPresentException, ElementClickInterceptedException
 
 
