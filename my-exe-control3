@@ -5,7 +5,12 @@ from openpyxl.styles import PatternFill
 import re
 import sys
 from bs4 import BeautifulSoup
-
+from selenium.common.exceptions import (
+    ElementNotInteractableException,
+    NoAlertPresentException,
+    NoSuchElementException,
+    TimeoutException
+)
 import tkinter as tk
 import inspect
 import pandas as pd
@@ -112,7 +117,6 @@ print(json.dumps(permissions, indent=2, ensure_ascii=False))
 # *************************预设*****************************************************************************************
 windowname = ""
 # 更新输出文本框
-from selenium.common.exceptions import UnexpectedAlertPresentException, ElementClickInterceptedException
 
 
 def update_output_text(output_text, message):
