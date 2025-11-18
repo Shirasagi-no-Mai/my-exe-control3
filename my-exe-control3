@@ -6830,7 +6830,6 @@ def netchb_entry_update(account, password, output_text):
         select_element = driver.find_element(By.ID, "cfrm1")
         select = Select(select_element)
         select.select_by_value("consignee")
-        time.sleep(20)
         save_button = driver.find_element(By.XPATH,
                                           '//*[@id="entF"]/div[11]/input[1]')
         save_button.click()
