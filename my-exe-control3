@@ -6830,9 +6830,9 @@ def netchb_entry_update(account, password, output_text):
         select_element = driver.find_element(By.ID, "cfrm1")
         select = Select(select_element)
         select.select_by_value("consignee")
+        time.sleep(20)
         save_button = driver.find_element(By.XPATH,
                                           '//*[@id="entF"]/div[11]/input[1]')
-        time.sleep(3)
         save_button.click()
 
         driver.get(f'https://www.netchb.com/app/entry/transmit/finalizeEntry.do?filerCode=NXU&entryNo={prefixed_no}')
@@ -8783,7 +8783,7 @@ def go_back_to_main(current_frame, account, password):
 
 # 初始化主窗口
 root = ctk.CTk()
-root.title("54321")
+root.title("真是一对苦命鸳鸯阿")
 root.geometry("600x420")
 root.configure(fg_color="#1e1e1e")
 
