@@ -1,4 +1,3 @@
-
 import openpyxl
 from openpyxl import Workbook
 from selenium.common.exceptions import ElementNotInteractableException
@@ -274,7 +273,7 @@ def FDA_program(account, password, output_text):
             update_output_text(output_text, "程序已过期，请联系Larry获取更新版本。\n\n")
             exit()
 
-    user_home = os.path.expanduser("真是一对苦命鸳鸯啊")
+    user_home = os.path.expanduser("~")
     possible_paths = [
         os.path.join(user_home, "Desktop"),
         os.path.join(user_home, "桌面"),
