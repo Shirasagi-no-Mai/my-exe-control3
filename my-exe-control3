@@ -2158,7 +2158,7 @@ def query_program(account, password, output_text):
     else:
         update_output_text(output_text, "未找到有效的桌面路径\n\n")
         sys.exit()  # 程序立即停止
-    token = "eyJhbGciOiJIUzI1NiIsInR5cCI6ImFjY2VzcyJ9.eyJpYXQiOjE3NDQxNTU2MzEsImV4cCI6MTc3NTY5MTYzMSwiYXVkIjoiaHR0cHM6Ly95b3VyZG9tYWluLmNvbSIsImlzcyI6ImZlYXRoZXJzIiwic3ViIjoiNjc2MzA0NWJmYjUzZDM1NDc0ZTExZjQ2IiwianRpIjoiZDhlMmU3OWEtMWFjNC00YmNjLWFmNmItYTVkMTljZGFjODdiIn0.q5_Cp_wURZEz4fV6P1mySAbbj0PYC1acS3Fd4m7G3Dk"
+    token = "eyJhbGciOiJIUzI1NiIsInR5cCI6ImFjY2VzcyJ9.eyJpYXQiOjE3NTgwMzYzNDIsImV4cCI6MTc4OTU3MjM0MiwiYXVkIjoiaHR0cHM6Ly95b3VyZG9tYWluLmNvbSIsImlzcyI6ImZlYXRoZXJzIiwic3ViIjoiNjhjNTlmZGU5OWY0N2M3ODkzNzZiNTMwIiwianRpIjoiODNiOWEyMDQtM2RmNy00YTg5LWJjNDctNzhmZTYyOGY2YTNjIn0.5q9Sqoz-Puf6nRmm1bqaZEYAs3AkECyFPewTKJQaoIc"
 
     # 读取 Excel 文件
     df = pd.read_excel(file_path, header=None, dtype=str)  # 如果没有列名，使用 header=None
@@ -2326,7 +2326,7 @@ def query_program(account, password, output_text):
         url = "https://api.customscity.com/api/ManifestQueryLatestResponse"
         params = {"type": "AWBNUMBER", "masterBOLNumber": awbcode}
         headers = {"accept": "application/json", "Authorization": "Bearer " + token}
-        max_retries = 10
+        max_retries = 600
         for attempt in range(max_retries):
             try:
                 response = requests.get(url, headers=headers, params=params)
@@ -7907,7 +7907,7 @@ def go_back_to_main(current_frame, account, password):
 
 # 初始化主窗口
 root = ctk.CTk()
-root.title("～")
+root.title("真是一对苦命鸳鸯啊")
 root.geometry("600x420")
 root.configure(fg_color="#1e1e1e")
 
